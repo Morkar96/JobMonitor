@@ -8,6 +8,7 @@ use Playwright (headless Chromium) to render the page before parsing.
 from __future__ import annotations
 
 import json
+import re
 import ssl
 import time
 import urllib.request
@@ -110,8 +111,15 @@ def _extract_generic(html: str, base_url: str) -> list[dict]:
     return candidates
 
 
+_WORKDAY_LOCATION_RE = re.compile(r"/job/([^/]+)/")
+
+
 def _extract_workday(html: str, base_url: str) -> list[dict]:
-    """Workday job boards render postings as <a data-automation-id="jobTitle">."""
+    """Workday job boards render postings as <a data-automation-id="jobTitle">.
+    The link text itself never includes location (Workday renders that in a
+    separate sibling element), but the job URL always does, e.g.
+    /job/EMEA---Poland---Krakw---Lubomirskiego/Job-Title_ID -- pull it from
+    there so downstream matching can actually see location info."""
     soup = BeautifulSoup(html, "lxml")
     candidates = []
     seen_urls = set()
@@ -130,6 +138,11 @@ def _extract_workday(html: str, base_url: str) -> list[dict]:
         if full_url in seen_urls:
             continue
         seen_urls.add(full_url)
+
+        loc_match = _WORKDAY_LOCATION_RE.search(href)
+        if loc_match:
+            location = loc_match.group(1).replace("---", ", ").replace("-", " ")
+            text = f"{text} - {location}"
         candidates.append({"title": text, "url": full_url})
 
     return candidates

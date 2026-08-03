@@ -156,11 +156,38 @@ KEYWORDS = {
         "ניסיון של 5", "ניסיון של 7", "מנהל/ת צוות",
     ],
     "location": [
-        "tel aviv", "gush dan", "central israel", "center district",
-        "ramat gan", "herzliya", "petah tikva", "petach tikva",
-        "givatayim", "bnei brak", "rishon lezion", "rishon le zion",
-        "תל אביב", "גוש דן", "מרכז", "רמת גן", "הרצליה", "פתח תקווה",
+        "israel", "tel aviv", "gush dan", "central israel", "center district",
+        "ramat gan", "herzliya", "petah tikva", "petach tikva", "raanana",
+        "ra'anana", "kfar saba", "givatayim", "bnei brak", "rishon lezion",
+        "rishon le zion",
+        "ישראל", "תל אביב", "גוש דן", "מרכז", "רמת גן", "הרצליה", "פתח תקווה",
         "גבעתיים", "בני ברק", "ראשון לציון", "רעננה", "כפר סבא",
+    ],
+    # Explicit signal that a posting is located somewhere other than Israel.
+    # Not exhaustive -- just the countries/hubs global job boards actually
+    # use in practice -- but it's a real disqualifier: if a job says
+    # "Bangalore, India" it should never show up as compatible just because
+    # role matched and no Israeli location happened to be mentioned too.
+    "location_foreign": [
+        "united states", "usa", "u.s.", "canada", "mexico", "brazil",
+        "colombia", "argentina", "chile", "united kingdom", "ireland",
+        "france", "germany", "netherlands", "belgium", "spain", "portugal",
+        "italy", "switzerland", "austria", "sweden", "norway", "denmark",
+        "finland", "poland", "czech republic", "czechia", "hungary",
+        "romania", "bulgaria", "greece", "cyprus", "estonia", "latvia",
+        "lithuania", "ukraine", "russia", "turkey", "uae",
+        "united arab emirates", "saudi arabia", "egypt", "south africa",
+        "india", "china", "japan", "south korea", "taiwan", "singapore",
+        "malaysia", "indonesia", "philippines", "thailand", "vietnam",
+        "australia", "new zealand",
+        # foreign cities that show up without an accompanying country name
+        "taipei", "hsinchu", "shanghai", "shenzhen", "bengaluru",
+        "bangalore", "pune", "gurugram", "gurgaon", "hyderabad", "manila",
+        "alkmaar", "berlin", "düsseldorf", "dusseldorf", "london",
+        "southampton", "sydney", "ostrava", "prague", "limassol", "lisbon",
+        "kyiv", "seattle", "atlanta", "san francisco", "new york", "denver",
+        "dallas", "raleigh", "columbus", "chicago", "boston", "austin",
+        "los angeles", "sandy, ut", "vancouver", "toronto", "krakow", "krakw",
     ],
 }
 

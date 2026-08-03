@@ -8,9 +8,14 @@ at all). "level" only adds a small bonus when the posting explicitly says
 junior/entry-level. If a posting explicitly says senior/mid-level instead,
 that's an outright disqualifier ("senior_conflict"), regardless of score.
 
+Likewise, a posting that names a non-Israel location (and no Israeli one)
+is an outright disqualifier ("foreign_conflict") -- missing location info
+is treated as "unknown, don't penalize", but an explicit foreign location
+is a real conflict, not just an absence of a positive signal.
+
 Score = sum of weights for matched categories (0-100).
 A job is "compatible" if score >= COMPATIBILITY_THRESHOLD and there's no
-senior_conflict.
+senior_conflict or foreign_conflict.
 """
 
 from config import KEYWORDS, WEIGHTS, COMPATIBILITY_THRESHOLD
@@ -27,7 +32,7 @@ def score_job(title: str, extra_text: str = "") -> dict:
     extra_text: optional extra context (e.g. surrounding snippet), improves
                 recall for location/level info that isn't in the title itself
     Returns {"score": int, "compatible": bool, "matched": [categories],
-              "senior_conflict": bool}
+              "senior_conflict": bool, "foreign_conflict": bool}
     """
     combined = f"{title} {extra_text}"
     matched = []
@@ -43,9 +48,20 @@ def score_job(title: str, extra_text: str = "") -> dict:
         matched.append("level")
         score += WEIGHTS["level"]
 
+    # only a disqualifier when there's no Israeli location also mentioned --
+    # trust the positive signal over the negative one if both are present
+    foreign_conflict = "location" not in matched and _matches(combined, KEYWORDS["location_foreign"])
+
+    compatible = (
+        score >= COMPATIBILITY_THRESHOLD
+        and not senior_conflict
+        and not foreign_conflict
+    )
+
     return {
         "score": score,
-        "compatible": score >= COMPATIBILITY_THRESHOLD and not senior_conflict,
+        "compatible": compatible,
         "matched": matched,
         "senior_conflict": senior_conflict,
+        "foreign_conflict": foreign_conflict,
     }

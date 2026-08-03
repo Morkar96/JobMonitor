@@ -21,13 +21,11 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        working-directory: 
         run: |
           pip install -r requirements.txt
           playwright install --with-deps chromium
 
       - name: Run job monitor
-        working-directory: job_monitor
         run: python main.py
 
       - name: Commit updated data & reports

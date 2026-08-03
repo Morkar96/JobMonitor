@@ -24,6 +24,7 @@ from datetime import datetime
 
 from config import SITES, REPORTS_DIR
 import storage
+import tracker
 from scraper import fetch_job_candidates
 from matcher import score_job
 
@@ -110,11 +111,13 @@ def main():
 
     storage.save(data)
 
+    compatible_rows = [r for r in all_rows if r["compatible"]]
+    tracker.append_relevant_jobs(compatible_rows)
+    _write_github_actions_output(len(compatible_rows))
+
     if not all_rows:
         print("\nNo new/baseline jobs found this run.")
         return
-
-    compatible_rows = [r for r in all_rows if r["compatible"]]
 
     print(f"\n{'=' * 60}")
     print(f"TOTAL evaluated: {len(all_rows)} | COMPATIBLE (>=75%): {len(compatible_rows)}")
@@ -124,6 +127,17 @@ def main():
 
     report_path = write_report(all_rows)
     print(f"\nFull report (including non-matches) saved to: {report_path}")
+
+
+def _write_github_actions_output(compatible_count: int):
+    """When running inside GitHub Actions, expose the compatible-job count
+    as a step output so the workflow can use it (e.g. to title an alert
+    issue) without having to re-parse our report files."""
+    output_path = os.environ.get("GITHUB_OUTPUT")
+    if not output_path:
+        return
+    with open(output_path, "a", encoding="utf-8") as f:
+        f.write(f"compatible_count={compatible_count}\n")
 
 
 if __name__ == "__main__":

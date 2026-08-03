@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   run-monitor:
@@ -26,12 +27,33 @@ jobs:
           playwright install --with-deps chromium
 
       - name: Run job monitor
+        id: run_monitor
         run: python main.py
 
       - name: Commit updated data & reports
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add job_monitor/data job_monitor/reports
+          git add data reports
           git diff --cached --quiet || git commit -m "Daily job monitor run $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push
+
+      # Opens a GitHub Issue when new relevant jobs are found. GitHub emails
+      # you automatically for new issues on your own repo (see notification
+      # settings at github.com/settings/notifications) -- no SMTP/mail
+      # secrets to manage, it rides on GitHub's own notification system.
+      - name: Alert on new relevant jobs
+        if: steps.run_monitor.outputs.compatible_count != '' && steps.run_monitor.outputs.compatible_count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          COUNT="${{ steps.run_monitor.outputs.compatible_count }}"
+          TODAY=$(date -u +'%Y-%m-%d')
+          awk "/^## ${TODAY}\$/{flag=1; next} /^## /{flag=0} flag" reports/relevant_jobs.md > /tmp/issue_body.md
+          {
+            echo ""
+            echo "Full running log: [reports/relevant_jobs.md](https://github.com/${{ github.repository }}/blob/main/reports/relevant_jobs.md)"
+          } >> /tmp/issue_body.md
+          gh issue create \
+            --title "Job Monitor: ${COUNT} relevant job(s) found on ${TODAY}" \
+            --body-file /tmp/issue_body.md

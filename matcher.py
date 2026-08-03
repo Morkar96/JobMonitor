@@ -3,8 +3,14 @@ Scores a candidate job posting against the desired profile
 (junior software developer, center of Israel) using simple
 substring keyword matching across three categories: role, level, location.
 
+role and location are the main signal (most postings never mention a level
+at all). "level" only adds a small bonus when the posting explicitly says
+junior/entry-level. If a posting explicitly says senior/mid-level instead,
+that's an outright disqualifier ("senior_conflict"), regardless of score.
+
 Score = sum of weights for matched categories (0-100).
-A job is "compatible" if score >= COMPATIBILITY_THRESHOLD.
+A job is "compatible" if score >= COMPATIBILITY_THRESHOLD and there's no
+senior_conflict.
 """
 
 from config import KEYWORDS, WEIGHTS, COMPATIBILITY_THRESHOLD
@@ -20,19 +26,26 @@ def score_job(title: str, extra_text: str = "") -> dict:
     title: the link text / job title we scraped
     extra_text: optional extra context (e.g. surrounding snippet), improves
                 recall for location/level info that isn't in the title itself
-    Returns {"score": int, "compatible": bool, "matched": [categories]}
+    Returns {"score": int, "compatible": bool, "matched": [categories],
+              "senior_conflict": bool}
     """
     combined = f"{title} {extra_text}"
     matched = []
     score = 0
 
-    for category, keywords in KEYWORDS.items():
-        if _matches(combined, keywords):
+    for category in ("role", "location"):
+        if _matches(combined, KEYWORDS[category]):
             matched.append(category)
             score += WEIGHTS[category]
 
+    senior_conflict = _matches(combined, KEYWORDS["level_senior"])
+    if not senior_conflict and _matches(combined, KEYWORDS["level_junior"]):
+        matched.append("level")
+        score += WEIGHTS["level"]
+
     return {
         "score": score,
-        "compatible": score >= COMPATIBILITY_THRESHOLD,
+        "compatible": score >= COMPATIBILITY_THRESHOLD and not senior_conflict,
         "matched": matched,
+        "senior_conflict": senior_conflict,
     }

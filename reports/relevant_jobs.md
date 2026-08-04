@@ -12,3 +12,6 @@ Check a box on GitHub once you've submitted your application for that job.
 - [ ] **Remitly Israel** — Software Development Engineer II- IHUB (85%) — [link](https://careers.remitly.com/job/23658853/software-development-engineer-ii-ihub-seattle-wa/)
 - [ ] **Remitly Israel** — Software Development Engineer II- IHUB (85%) — [link](https://careers.remitly.com/job/23658852/software-development-engineer-ii-ihub-seattle-wa/)
 - [ ] **Aidoc** — Technical Operations Engineer Tel Aviv-Yafo, Tel Aviv District, Israel (95%) — [link](https://www.aidoc.com/about/careers/technical-operations-engineer)
+
+- [ ] **Apple Israel** — Software Data Engineer (85%) — [link](https://jobs.apple.com/en-il/details/200666053-0865/software-data-engineer?team=SFTWR)
+- [ ] **Apple Israel** — Mechanical Engineer (85%) — [link](https://jobs.apple.com/en-il/details/200666049-0865/mechanical-engineer?team=HRDWR)

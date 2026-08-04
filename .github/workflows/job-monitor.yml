@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main
-      paths-ignore:
-        - 'job_monitor/data/**'
-        - 'job_monitor/reports/**'
+    paths-ignore:
+      - 'job_monitor/data/**'
+      - 'job_monitor/reports/**'
   schedule:
     - cron: "0 6 * * *"
   workflow_dispatch: {}

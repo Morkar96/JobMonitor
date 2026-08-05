@@ -128,6 +128,17 @@ SITES = [
     {"name": "AERONAUTICS", "url": "https://career.aeronautics-sys.com/open-positions/?department=5768ac99528b44c6bd972c70d06c43d6"},
     {"name": "Priority Software", "url": "https://www.priority-software.com/careers/"},
     {"name": "Guesty", "url": "https://www.guesty.com/careers/"},
+    {"name": "משרות ממשלתיות ללא מכרז", "url": "https://www.gov.il/he/collectors/publications?Type=0ec5a7ef-977c-459f-8c0a-dcfbe35c8164&drushimStatusType=1"},
+    {"name": "מכבי", "url": "https://www.maccabi4u.co.il/careers/search-job-positions/?&Jobs=1000"},
+    {"name": "כללית", "url": "https://jobs.clalitapps.co.il/clalit/index.html?ci=0"},
+    {"name": "לאומית", "url": "https://www.leumit.co.il/jobs/work-in-leumit/"},
+    {"name": "מאוחרת", "url": "https://www.meuhedet.co.il/search?mod=400"},
+    {"name": "שיבא", "url": "https://www.sheba.co.il/general/guides/career#f568d9ca-9161-4bc0-b79a-71d3ddade12b"},
+    {"name": "איכילוב", "url": "https://jobs.tasmc.org.il/Positions/"},
+    {"name": "מדיקל סנטר הרצליה", "url": "https://hmc.co.il/%D7%93%D7%A8%D7%95%D7%A9%D7%99%D7%9D/%D7%9B%D7%9C-%D7%94%D7%9E%D7%A9%D7%A8%D7%95%D7%AA-%D7%94%D7%A4%D7%AA%D7%95%D7%97%D7%95%D7%AA/"},
+    {"name": "רשות שדות התעופה", "url": "https://www.iaa.gov.il/about/jobs/"},
+    {"name": "חברת החשמל", "url": "https://careers.iec.co.il/?referid=&freeText=&profs%5B%5D=15%2C44&page=1"},
+    #{"name": "", "url": ""},
 ]
 
 # Compatibility keyword sets (English + Hebrew). A candidate job title/snippet

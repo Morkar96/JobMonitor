@@ -191,7 +191,7 @@ KEYWORDS = {
         "united arab emirates", "saudi arabia", "egypt", "south africa",
         "india", "china", "japan", "south korea", "taiwan", "singapore",
         "malaysia", "indonesia", "philippines", "thailand", "vietnam",
-        "australia", "new zealand", "norway"
+        "australia", "new zealand", "norway",
         # foreign cities that show up without an accompanying country name
         "taipei", "hsinchu", "shanghai", "shenzhen", "bengaluru",
         "bangalore", "pune", "gurugram", "gurgaon", "hyderabad", "manila",

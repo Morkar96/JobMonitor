@@ -34,3 +34,19 @@ Check a box on GitHub once you've submitted your application for that job.
 - [ ] **Autodesk Israel** — Graduate Software Engineer (90%) — [link](https://autodesk.wd1.myworkdayjobs.com/en-US/Ext/job/Norway---Oslo/Graduate-Software-Engineer_26WD100002-1)
 - [ ] **Autodesk Israel** — Maya Software Engineer (85%) — [link](https://autodesk.wd1.myworkdayjobs.com/en-US/Ext/job/California-USA---Remote/Maya-Software-Engineer_26WD99864)
 - [ ] **Autodesk Israel** — Full Stack Software Development Engineer (85%) — [link](https://autodesk.wd1.myworkdayjobs.com/en-US/Ext/job/EMEA---Poland---Krakw---Lubomirskiego/Full-Stack-Software-Development-Engineer_26WD100347)
+
+- [ ] **Nvidia** — Chip Design Engineer JR2016289 Israel, Tel Aviv (95%) — [link](https://jobs.nvidia.com/careers/job/893394637972)
+- [ ] **Nvidia** — System Software Engineer JR2016510 Israel, Yokneam (95%) — [link](https://jobs.nvidia.com/careers/job/893394706680)
+- [ ] **Amazon Israel** — Software Development Engineer , Annapurna Labs (85%) — [link](https://www.amazon.jobs/jobs/10492675)
+- [ ] **Remitly Israel** — Software Development Engineer II- Trust Intelligence Platform (85%) — [link](https://careers.remitly.com/job/23451904/software-development-engineer-ii-trust-intelligence-platform-seattle-wa/)
+- [ ] **Digital Turbine** — Software Engineering Manager (85%) — [link](https://digitalturbine.wd501.myworkdayjobs.com/en-US/Digital_Turbine_External_Careers/job/United-States---Durham/Manager--Software-Engineering_JR101001)
+- [ ] **איכילוב** — # 198546 גוש דן 12/7/2026 מפתח.ת טכנולוגיות למידה אנחנו מחפשים מפתח.ת למידה בתחילת הדרך המקצועית, עם תשוקה לעולמות הלמידה הדיגיטלית והטכנולוגיה, לצוות הלמידה והפיתוח הארגוני של איכילוב. הזדמנות מצוינת לבוגרי.ות תואר בטכנולוגיות למידה להשתלב בארגון מוביל, לצבור ניסיון מעשי ולהיות חלק מפיתוח פתרונות 0 (95%) — [link](https://jobs.tasmc.org.il/Positions/redmatch-apply/redmatch.apply.html?compPositionID=198546)
+- [ ] **איכילוב** — # 198273 גוש דן 16/6/2026 מפתח.ת Full Stack מנוסה ב NET / .NET Core / React אגף מערכות מידע מגייס מפתח.ת Full Stack עם ניסיון של 3 שנים, להצטרפות לצוות פיתוח במחלקת הדיגיטל האחראי על פיתוח, תחזוקה ושדרוג של מערכות Web ארגוניות.  
+
+ 
+
+  תיאור תפקיד:  
+
+ 
+
+	 פיתוח מערכות Web מקצה לקצה  כמפתח  Full Stack עבור מערכות פנים ארגוניות (95%) — [link](https://jobs.tasmc.org.il/Positions/redmatch-apply/redmatch.apply.html?compPositionID=198273)

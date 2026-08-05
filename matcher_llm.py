@@ -32,7 +32,10 @@ import requests
 from config import WEIGHTS, COMPATIBILITY_THRESHOLD
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-GEMINI_MODEL = "gemini-2.5-flash"
+# "-latest" is a Google-maintained alias that always points at their current
+# recommended flash model, so this doesn't need to be re-pinned every time
+# a specific dated model version gets deprecated (as gemini-2.5-flash was).
+GEMINI_MODEL = "gemini-flash-latest"
 GEMINI_URL = (
     f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 )

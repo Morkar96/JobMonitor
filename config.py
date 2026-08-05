@@ -70,7 +70,7 @@ SITES = [
     },
     {"name": "Cyberark Software", "url": "https://jobs.paloaltonetworks.com/en/search-jobs/Israel/47263/2/294640/31x5/34x75/50/2"},
     {"name": "Panaya", "url": "https://www.panaya.com/careers/#b-career-listing-1"},
-    {"name": "Autodesk Israel ", "url": "https://autodesk.wd1.myworkdayjobs.com/Ext"},
+    {"name": "Autodesk Israel", "url": "https://autodesk.wd1.myworkdayjobs.com/Ext"},
     {"name": "Cyera", "url": "https://www.cyera.com/careers-il#open-positions"},
     {"name": "AppsFlyer", "url": "https://careers.appsflyer.com/#careersOps"},
     {"name": "Overwolf ", "url": "https://careers.overwolf.com/#position"},

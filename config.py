@@ -135,16 +135,16 @@ SITES = [
 KEYWORDS = {
     "role": [
         "developer", "software engineer", "programmer", "full stack",
-        "fullstack", "frontend", "front-end", "backend", "back-end",
-        "engineer", "coder", "swe",
+        "fullstack", "backend", "back-end",
+        "engineer", "coder",
         "מתכנת", "מתכנת/ת", "מתכנתת", "מפתח", "מפתח/ת", "מפתחת",
         "תוכניתן", "תוכניתן/ית", "תוכניתנית", "הנדסת תוכנה", "פיתוח תוכנה",
     ],
     "level_junior": [
         "junior", "jr.", "jr ", "entry level", "entry-level", "graduate",
         "new grad", "no experience required", "0-1 year", "0-2 years",
-        "ג'וניור", "ג׳וניור", "גיוניור", "ללא ניסיון", "בוגר/ת", "בוגרי",
-        "אקדמאי/ת ללא ניסיון", "סטודנט/ית", "התחלת קריירה", "כניסה להייטק",
+        "ג'וניור", "ג׳וניור", "גיוניור", "ללא ניסיון",
+        "התחלת קריירה", "כניסה להייטק",
     ],
     # Explicit signal that a posting is NOT junior. Presence of any of these
     # disqualifies the job outright, regardless of how well role/location match.
@@ -152,6 +152,7 @@ KEYWORDS = {
         "senior", "sr.", "sr ", "sr)", "mid-level", "mid level", "middle level",
         "team lead", "tech lead", "lead developer", "staff ", "staff-",
         "principal ", "principal-", "5+ years", "7+ years", "10+ years",
+        "lead","director",
         "בכיר", "בכירה", "ראש צוות", "מוביל/ת צוות", "מוביל צוות",
         "ניסיון של 5", "ניסיון של 7", "מנהל/ת צוות",
     ],
@@ -179,7 +180,7 @@ KEYWORDS = {
         "united arab emirates", "saudi arabia", "egypt", "south africa",
         "india", "china", "japan", "south korea", "taiwan", "singapore",
         "malaysia", "indonesia", "philippines", "thailand", "vietnam",
-        "australia", "new zealand",
+        "australia", "new zealand", "norway"
         # foreign cities that show up without an accompanying country name
         "taipei", "hsinchu", "shanghai", "shenzhen", "bengaluru",
         "bangalore", "pune", "gurugram", "gurgaon", "hyderabad", "manila",
@@ -188,6 +189,7 @@ KEYWORDS = {
         "kyiv", "seattle", "atlanta", "san francisco", "new york", "denver",
         "dallas", "raleigh", "columbus", "chicago", "boston", "austin",
         "los angeles", "sandy, ut", "vancouver", "toronto", "krakow", "krakw",
+        "oslo",
     ],
 }
 

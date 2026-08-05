@@ -29,3 +29,8 @@ Check a box on GitHub once you've submitted your application for that job.
 - [ ] **Amazon Israel** — Chip Design Engineer, Graviton Team (85%) — [link](https://www.amazon.jobs/jobs/3156914)
 - [ ] **Amazon Israel** — Verification Engineer (85%) — [link](https://www.amazon.jobs/jobs/10408690)
 - [ ] **Remitly Israel** — Analytics Engineer (85%) — [link](https://careers.remitly.com/job/23664466/analytics-engineer-seattle-wa/)
+
+- [ ] **Autodesk Israel** — Software Engineering Intern Summer 2027 (85%) — [link](https://autodesk.wd1.myworkdayjobs.com/en-US/Ext/job/Norway---Oslo/Software-Engineering-Intern-Summer-2027_26WD100046)
+- [ ] **Autodesk Israel** — Graduate Software Engineer (90%) — [link](https://autodesk.wd1.myworkdayjobs.com/en-US/Ext/job/Norway---Oslo/Graduate-Software-Engineer_26WD100002-1)
+- [ ] **Autodesk Israel** — Maya Software Engineer (85%) — [link](https://autodesk.wd1.myworkdayjobs.com/en-US/Ext/job/California-USA---Remote/Maya-Software-Engineer_26WD99864)
+- [ ] **Autodesk Israel** — Full Stack Software Development Engineer (85%) — [link](https://autodesk.wd1.myworkdayjobs.com/en-US/Ext/job/EMEA---Poland---Krakw---Lubomirskiego/Full-Stack-Software-Development-Engineer_26WD100347)

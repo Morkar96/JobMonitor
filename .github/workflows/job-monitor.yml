@@ -32,8 +32,16 @@ jobs:
           pip install -r requirements.txt
           playwright install --with-deps chromium
 
+      # GEMINI_API_KEY is optional. If the repo secret isn't set, matcher.py
+      # automatically falls back to keyword matching -- nothing breaks. To
+      # enable LLM matching: create a free-tier key at
+      # https://aistudio.google.com/apikey (confirm "Free tier", not
+      # "Pay-as-you-go"), then add it as a repo secret named GEMINI_API_KEY
+      # under Settings > Secrets and variables > Actions.
       - name: Run job monitor
         id: run_monitor
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python main.py
 
       - name: Commit updated data & reports

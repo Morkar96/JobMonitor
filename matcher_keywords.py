@@ -65,4 +65,7 @@ def score_job_keywords(title: str, extra_text: str = "") -> dict:
         "matched": matched,
         "senior_conflict": senior_conflict,
         "foreign_conflict": foreign_conflict,
+        # keyword matching has no way to tell a blog post from a real
+        # posting -- only the LLM path (matcher_llm.py) can set this True.
+        "non_job_content": False,
     }

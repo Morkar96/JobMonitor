@@ -40,7 +40,26 @@ NOISE_WORDS = {
     "login", "sign in", "sign up", "facebook", "twitter", "linkedin",
     "instagram", "youtube", "accessibility", "site map", "פרטיות",
     "תנאי שימוש", "צור קשר", "אודות", "בית", "התחברות", "נגישות",
+    # These describe company content, not a specific role -- a page titled
+    # "Engineering Blog" or "Global Engineering Days" will happily pass
+    # role/level/location matching despite never being a job posting.
+    "blog", "webinar", "read more", "watch now", "watch video",
+    "talent community", "קראו עוד", "צפו", "וובינר",
 }
+
+# Link text/URLs pointing at these domains are never job postings (blog
+# videos, social embeds, etc.), regardless of how job-ish the link text
+# sounds.
+NOISE_DOMAINS = {"youtube.com", "youtu.be", "vimeo.com"}
+
+# URL path segments that indicate company content rather than a specific
+# job requisition (team overview, marketing/product pages, resource
+# libraries). A page can still pass if it ALSO has a clear job_url_hint
+# below -- e.g. some ATSes nest job listings under "/careers/blog/" -- but
+# on its own this disqualifies what would otherwise pass on link-text length
+# alone.
+NEGATIVE_URL_WORDS = ["/blog", "/resources", "/solutions", "/products",
+                       "/teams/", "/news", "/press", "/webinar"]
 
 
 def _render_page(url: str, browser, wait_selector: str | None = None, timeout_ms: int = 25000) -> str:
@@ -114,18 +133,23 @@ def _extract_generic(html: str, base_url: str) -> list[dict]:
         if any(noise in lower_text for noise in NOISE_WORDS):
             continue
 
+        parsed = urlparse(full_url)
+        if any(parsed.netloc.endswith(d) for d in NOISE_DOMAINS):
+            continue
+
         # Heuristic: real job-posting links tend to have "job", "career",
         # "position", "req", "vacancy", or a Hebrew equivalent in the URL,
         # OR reasonably descriptive link text (title-like, not a 1-2 word nav item).
-        path = urlparse(full_url).path.lower()
+        path = parsed.path.lower()
         job_url_hint = any(
             kw in path
             for kw in ["job", "career", "position", "req", "vacan", "role",
                        "משרה", "משרות", "דרוש"]
         )
         descriptive_text = len(text.split()) >= 2
+        negative_url_hint = any(kw in path for kw in NEGATIVE_URL_WORDS)
 
-        if job_url_hint or descriptive_text:
+        if job_url_hint or (descriptive_text and not negative_url_hint):
             seen_urls.add(full_url)
             candidates.append({"title": text, "url": full_url})
 

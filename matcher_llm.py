@@ -41,11 +41,14 @@ GEMINI_URL = (
 )
 
 # --- Hard safety caps -------------------------------------------------
-# Google's free tier (subject to change -- check aistudio.google.com for
-# current numbers) has historically been in the range of ~1,500
-# requests/day and ~10 requests/minute for Gemini Flash. These caps are
-# set well under that on purpose, as a second line of defense that has
-# nothing to do with trusting Google's quota enforcement.
+# NOTE: measured against this project's actual free-tier key, the daily
+# quota was as low as 20 requests/day for the current flash model --
+# nowhere near the ~1,500/day some free-tier docs describe (it appears to
+# vary by project/model and Google changes it without much notice). Don't
+# assume MAX_LLM_CALLS_PER_RUN below will actually be reached; in practice
+# you'll usually hit Google's own 429 first, which is handled gracefully
+# (falls back to keyword matching -- see LLMMatcherUnavailable). Check
+# https://ai.dev/rate-limit for the current number on your own key.
 MAX_LLM_CALLS_PER_RUN = 150          # hard stop, regardless of how many jobs are found
 MIN_SECONDS_BETWEEN_CALLS = 4.0      # keeps us well under free RPM limits
 REQUEST_TIMEOUT_SECONDS = 20
@@ -56,6 +59,7 @@ _last_call_time = 0.0
 RESPONSE_SCHEMA = {
     "type": "object",
     "properties": {
+        "is_job_posting": {"type": "boolean"},
         "role_match": {"type": "boolean"},
         "level_match": {"type": "boolean"},
         "level_explicitly_senior": {"type": "boolean"},
@@ -64,8 +68,9 @@ RESPONSE_SCHEMA = {
         "reasoning": {"type": "string"},
     },
     "required": [
-        "role_match", "level_match", "level_explicitly_senior",
-        "location_match", "location_explicitly_foreign", "reasoning",
+        "is_job_posting", "role_match", "level_match",
+        "level_explicitly_senior", "location_match",
+        "location_explicitly_foreign", "reasoning",
     ],
 }
 
@@ -85,6 +90,13 @@ for the *_match fields (treat "unknown" as "no bonus", not as a conflict),
 but the *_explicitly_* fields must only be true when the text actually says
 so -- never guess a conflict from silence.
 
+- is_job_posting: Does this text describe a SPECIFIC open role someone can
+  apply for right now? Answer false for a blog post, employee spotlight/
+  interview, video, news article, product or marketing page, developer/API
+  portal, a "join our talent community" signup, or a team/department
+  overview page that isn't a single requisition -- even if it's full of
+  role-sounding words like "engineer" or "developer". If false, none of
+  the other answers matter (there's no role to evaluate).
 - role_match: Is this a software development / programming role (developer,
   software engineer, programmer -- NOT pure QA/support/sales/hardware/ops
   unless clearly hands-on coding)?
@@ -107,7 +119,7 @@ so -- never guess a conflict from silence.
   location is actually stated.
 
 Respond with ONLY a JSON object, no other text, matching this exact shape:
-{{"role_match": true or false, "level_match": true or false, "level_explicitly_senior": true or false, "location_match": true or false, "location_explicitly_foreign": true or false, "reasoning": "one short sentence explaining the decision"}}
+{{"is_job_posting": true or false, "role_match": true or false, "level_match": true or false, "level_explicitly_senior": true or false, "location_match": true or false, "location_explicitly_foreign": true or false, "reasoning": "one short sentence explaining the decision"}}
 """
 
 
@@ -180,14 +192,19 @@ def _call_gemini(title: str, extra_text: str) -> dict:
 
 def score_job_llm(title: str, extra_text: str = "") -> dict:
     """
-    Same return shape as matcher_keywords.score_job_keywords():
+    Same return shape as matcher_keywords.score_job_keywords(), plus
+    non_job_content (the keyword matcher has no equivalent -- it can't
+    tell a blog post from a posting, only the LLM path can):
     {"score": int, "compatible": bool, "matched": [categories],
-     "senior_conflict": bool, "foreign_conflict": bool, "reasoning": str}
+     "senior_conflict": bool, "foreign_conflict": bool,
+     "non_job_content": bool, "reasoning": str}
 
     Raises LLMMatcherUnavailable if the LLM can't be used right now --
     callers must catch this and fall back to keyword matching.
     """
     result = _call_gemini(title, extra_text)
+
+    non_job_content = not result.get("is_job_posting", True)
 
     matched = []
     score = 0
@@ -211,6 +228,7 @@ def score_job_llm(title: str, extra_text: str = "") -> dict:
         score >= COMPATIBILITY_THRESHOLD
         and not senior_conflict
         and not foreign_conflict
+        and not non_job_content
     )
 
     return {
@@ -219,5 +237,6 @@ def score_job_llm(title: str, extra_text: str = "") -> dict:
         "matched": matched,
         "senior_conflict": senior_conflict,
         "foreign_conflict": foreign_conflict,
+        "non_job_content": non_job_content,
         "reasoning": result.get("reasoning", ""),
     }

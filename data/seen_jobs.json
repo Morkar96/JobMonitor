@@ -5201,6 +5201,7 @@
     "seen_urls": [
       "https://business.safety.google/privacy/",
       "https://legal.hubspot.com/privacy-policy",
+      "https://legal.hubspot.com/privacy-policy?__hstc=227931650.1b97d2fa9b149944c8cbb47534ec5af7.1786032130377.1786032130377.1786032130377.1&__hssc=227931650.1.1786032130377&__hsfp=afadd6b3940d6c0b048ce23b6e10e37a",
       "https://legal.hubspot.com/privacy-policy?__hstc=227931650.aa62a508e751b4ec44752cb09becba69.1785979204976.1785979204976.1785979204976.1&__hssc=227931650.1.1785979204976&__hsfp=afadd6b3940d6c0b048ce23b6e10e37a",
       "https://legal.hubspot.com/privacy-policy?__hstc=227931650.ea2d0360e7afa8cd23f6a0b57315b1d5.1786004930279.1786004930279.1786004930279.1&__hssc=227931650.1.1786004930279&__hsfp=5f4c99a096b4446777bfb638a922188a",
       "https://market.priority-software.com/",
@@ -5327,7 +5328,7 @@
       "https://www.redditinc.com/policies/privacy-policy",
       "https://www.zoominfo.com/legal/privacy-policy"
     ],
-    "last_checked": "2026-08-06T08:28:53.907299+00:00",
+    "last_checked": "2026-08-06T16:02:13.907660+00:00",
     "first_seen": "2026-08-06T01:28:49.600739+00:00"
   },
   "Guesty": {

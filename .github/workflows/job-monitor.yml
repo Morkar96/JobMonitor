@@ -1,12 +1,6 @@
 name: Daily Job Monitor
 
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - 'data/**'
-      - 'reports/**'
   schedule:
     - cron: "0 6 * * *"
   workflow_dispatch: {}

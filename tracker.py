@@ -5,30 +5,56 @@ GitHub commits the tick directly back to the file, no extra tooling needed.
 """
 
 import os
+import re
 from datetime import date
 
 TRACKER_PATH = "reports/relevant_jobs.md"
 
+_LOGGED_URL_RE = re.compile(r"\]\(([^)]+)\)")
+
+
+def _flatten(text: str) -> str:
+    """Some scraped titles contain raw embedded newlines (a site's HTML had
+    literal line breaks within one text node). Left as-is, that splits a
+    single bullet across multiple physical lines, which breaks Markdown
+    list rendering and defeats simple line-based tooling (dedup scripts,
+    grep, etc.). Collapse all whitespace runs to a single space."""
+    return " ".join(text.split())
+
 
 def append_relevant_jobs(rows: list[dict], path: str = TRACKER_PATH):
-    """rows: compatible job rows (as built in main.process_site). Each row's
-    URL has already passed through storage's seen-URL dedup, so every call
-    here is guaranteed to be jobs not logged before -- safe to just append."""
+    """rows: compatible job rows (as built in main.process_site).
+
+    In the common case, each row's URL has already passed through
+    storage's seen-URL dedup, so it's a job not logged before. But that
+    dedup state (data/seen_jobs.json) can lose continuity -- a manual
+    reset, a lost write from a race with another run, etc. -- in which
+    case the same job would be scored as "new" again and land here. Since
+    this file is what gets actually read/checked off, it needs to stay
+    duplicate-free on its own regardless of what upstream state did, so
+    we re-check every row's URL against everything already logged in the
+    file (not just today's section) before appending."""
     if not rows:
         return
 
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    header = f"## {date.today().isoformat()}"
-    bullets = "\n".join(
-        f"- [ ] **{r['site']}** — {r['title']} ({r['score']}%) — [link]({r['url']})"
-        for r in rows
-    )
 
     exists = os.path.exists(path)
     existing = ""
     if exists:
         with open(path, "r", encoding="utf-8") as f:
             existing = f.read()
+
+    already_logged = set(_LOGGED_URL_RE.findall(existing))
+    rows = [r for r in rows if r["url"] not in already_logged]
+    if not rows:
+        return
+
+    header = f"## {date.today().isoformat()}"
+    bullets = "\n".join(
+        f"- [ ] **{r['site']}** — {_flatten(r['title'])} ({r['score']}%) — [link]({r['url']})"
+        for r in rows
+    )
 
     if not exists:
         block = (

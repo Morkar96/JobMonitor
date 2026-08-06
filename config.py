@@ -159,13 +159,23 @@ KEYWORDS = {
     ],
     # Explicit signal that a posting is NOT junior. Presence of any of these
     # disqualifies the job outright, regardless of how well role/location match.
+    # Candidate profile is 0-2 years, so anything requiring 3+ is a
+    # disqualifier. Covers both "N+ years" and bare "N years" phrasing
+    # (postings rarely use "+"), since keyword matching can't infer that
+    # "3 years" implies "at least 3" the way an LLM reading it would.
     "level_senior": [
         "senior", "sr.", "sr ", "sr)", "mid-level", "mid level", "middle level",
         "team lead", "tech lead", "lead developer", "staff ", "staff-",
-        "principal ", "principal-", "5+ years", "7+ years", "10+ years",
-        "lead","director",
-        "בכיר", "בכירה", "ראש צוות", "מוביל/ת צוות", "מוביל צוות",
-        "ניסיון של 5", "ניסיון של 7", "מנהל/ת צוות",
+        "principal ", "principal-", "lead", "director", "experienced",
+        "3+ years", "4+ years", "5+ years", "6+ years", "7+ years",
+        "8+ years", "9+ years", "10+ years",
+        "3 years", "4 years", "5 years", "6 years", "7 years", "8 years",
+        "9 years", "10 years",
+        "בכיר", "בכירה", "ראש צוות", "מוביל/ת צוות", "מוביל צוות", "מנוסה",
+        "מנוסה/ת", "מנוסה.ת",
+        "ניסיון של 3", "ניסיון של 4", "ניסיון של 5", "ניסיון של 6",
+        "ניסיון של 7", "ניסיון של 8", "ניסיון של 9", "ניסיון של 10",
+        "מנהל/ת צוות",
     ],
     "location": [
         "israel", "tel aviv", "gush dan", "central israel", "center district",

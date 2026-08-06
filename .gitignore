@@ -3,6 +3,12 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# Job monitor: per-run dated CSV dumps grow unbounded and aren't useful
+# once relevant_jobs.md has the curated result -- keep those two tracked
+# (relevant_jobs.md is the checklist; seen_jobs.json is dedup state the
+# daily workflow needs), but stop committing the raw per-run CSVs.
+reports/jobs_*.csv
+
 # C extensions
 *.so
 

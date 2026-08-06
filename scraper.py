@@ -16,18 +16,20 @@ from urllib.parse import urljoin, urlparse
 
 import certifi
 from bs4 import BeautifulSoup
-from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
+from playwright.sync_api import TimeoutError as PWTimeout
 
 # Some Python installs (notably python.org builds on macOS) don't wire up a
 # system CA trust store, so urllib can't verify HTTPS certs out of the box.
 # Point it at certifi's bundle explicitly rather than relying on the OS.
 _SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 
+_UA = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+)
+
 _API_HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-    ),
+    "User-Agent": _UA,
     "Accept": "application/json",
 }
 
@@ -41,34 +43,53 @@ NOISE_WORDS = {
 }
 
 
-def _render_page(url: str, wait_selector: str | None = None, timeout_ms: int = 25000) -> str:
-    """Load a URL in headless Chromium and return the fully rendered HTML."""
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page(
-            user_agent=(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
-            )
-        )
+def _render_page(url: str, browser, wait_selector: str | None = None, timeout_ms: int = 25000) -> str:
+    """Load a URL in headless Chromium and return the fully rendered HTML.
+    Takes an already-open Playwright `browser` rather than launching its
+    own -- callers share one browser for the whole run (see main.py) so we
+    don't pay Chromium's ~1-2s launch cost on every single site/page."""
+    page = browser.new_page(user_agent=_UA)
+    try:
+        page.goto(url, wait_until="networkidle", timeout=timeout_ms)
+    except PWTimeout:
+        # Some sites never go fully idle (polling/analytics). Fall back
+        # to whatever loaded so far.
+        pass
+
+    if wait_selector:
+        try:
+            page.wait_for_selector(wait_selector, timeout=timeout_ms)
+        except PWTimeout:
+            pass
+
+    # small extra pause for lazy-loaded lists
+    time.sleep(1.5)
+    html = page.content()
+    page.close()
+    return html
+
+
+def fetch_job_detail_text(url: str, browser, max_chars: int = 4000, timeout_ms: int = 15000) -> str:
+    """Render a single job posting page and return its visible body text,
+    truncated. Used for stage-2 refinement in main.py: a job that looked
+    compatible from its title alone gets re-checked against the real
+    posting body, which often states experience/location requirements the
+    title/link text never mentioned."""
+    page = browser.new_page(user_agent=_UA)
+    try:
         try:
             page.goto(url, wait_until="networkidle", timeout=timeout_ms)
         except PWTimeout:
-            # Some sites never go fully idle (polling/analytics). Fall back
-            # to whatever loaded so far.
             pass
-
-        if wait_selector:
-            try:
-                page.wait_for_selector(wait_selector, timeout=timeout_ms)
-            except PWTimeout:
-                pass
-
-        # small extra pause for lazy-loaded lists
-        time.sleep(1.5)
         html = page.content()
-        browser.close()
-        return html
+    finally:
+        page.close()
+
+    soup = BeautifulSoup(html, "lxml")
+    for tag in soup(["script", "style", "nav", "footer", "header", "noscript"]):
+        tag.decompose()
+    text = soup.get_text(" ", strip=True)
+    return text[:max_chars]
 
 
 def _extract_generic(html: str, base_url: str) -> list[dict]:
@@ -252,10 +273,12 @@ def _extract_oracle_hcm_api(site: dict) -> list[dict]:
     return candidates
 
 
-def fetch_job_candidates(site: dict) -> list[dict]:
+def fetch_job_candidates(site: dict, browser) -> list[dict]:
     """Return a de-duplicated list of {"title": ..., "url": ...} candidate
     job postings for a site. Sites backed by a known JSON API are queried
-    directly; everything else falls back to rendering + link extraction."""
+    directly; everything else falls back to rendering + link extraction.
+    `browser` is an already-open Playwright browser, shared across the
+    whole run -- see main.py."""
     engine = site.get("engine", "generic")
 
     if engine == "varonis_api":
@@ -267,7 +290,7 @@ def fetch_job_candidates(site: dict) -> list[dict]:
     if engine == "greenhouse_api":
         return _extract_greenhouse_api(site)
 
-    html = _render_page(site["url"], wait_selector=site.get("wait_selector"))
+    html = _render_page(site["url"], browser, wait_selector=site.get("wait_selector"))
 
     if engine == "workday":
         return _extract_workday(html, site["url"])

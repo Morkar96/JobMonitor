@@ -22,21 +22,60 @@ import sys
 import traceback
 from datetime import datetime
 
+from playwright.sync_api import sync_playwright
+
 from config import SITES, REPORTS_DIR
 import storage
 import tracker
-from scraper import fetch_job_candidates
+from scraper import fetch_job_candidates, fetch_job_detail_text
 from matcher import score_job
 
+# Stage 1 scores a job on its title alone (cheap, from the listing page we
+# already scraped). Stage 2 only kicks in for jobs stage 1 marked
+# compatible: it fetches the actual posting page and re-scores against the
+# real body text, which often states an experience/location requirement
+# the title never mentioned. Capped independently of the LLM's own
+# per-run cap since it's bounded by page-load time, not API quota -- with
+# a shared browser (see main()) each fetch is a few seconds, so this caps
+# worst-case stage-2 time at roughly MAX_STAGE2_FETCHES_PER_RUN * ~10s.
+MAX_STAGE2_FETCHES_PER_RUN = 60
+_stage2_fetch_count = 0
 
-def process_site(site: dict, data: dict) -> list[dict]:
+
+def evaluate_job(job: dict, browser) -> dict:
+    """Score a job, refining with stage 2 if stage 1 says it's compatible."""
+    global _stage2_fetch_count
+
+    result = score_job(job["title"])
+    result.setdefault("stage2_checked", False)
+    if not result["compatible"]:
+        return result
+
+    if _stage2_fetch_count >= MAX_STAGE2_FETCHES_PER_RUN:
+        return result
+
+    try:
+        detail_text = fetch_job_detail_text(job["url"], browser)
+    except Exception as e:
+        print(f"    [stage2] couldn't fetch job page, keeping title-only result: {e}")
+        return result
+
+    _stage2_fetch_count += 1
+    refined = score_job(job["title"], extra_text=detail_text)
+    refined["stage2_checked"] = True
+    if result["compatible"] and not refined["compatible"]:
+        print(f"    [stage2] demoted after reading full posting: {job['title'][:70]}")
+    return refined
+
+
+def process_site(site: dict, data: dict, browser) -> list[dict]:
     """Scrape one site, diff against storage, score candidates.
     Returns a list of report rows for jobs worth telling the user about."""
     name = site["name"]
     print(f"\n[{name}] fetching {site['url']} ...")
 
     try:
-        candidates = fetch_job_candidates(site)
+        candidates = fetch_job_candidates(site, browser)
     except Exception as e:
         print(f"[{name}] ERROR while scraping: {e}")
         traceback.print_exc()
@@ -59,7 +98,7 @@ def process_site(site: dict, data: dict) -> list[dict]:
 
     rows = []
     for job in to_evaluate:
-        result = score_job(job["title"])
+        result = evaluate_job(job, browser)
         rows.append({
             "site": name,
             "run_type": run_type,
@@ -68,6 +107,7 @@ def process_site(site: dict, data: dict) -> list[dict]:
             "score": result["score"],
             "compatible": result["compatible"],
             "matched_categories": ", ".join(result["matched"]),
+            "stage2_checked": result["stage2_checked"],
             "checked_at": datetime.now().isoformat(timespec="seconds"),
         })
 
@@ -82,7 +122,7 @@ def write_report(rows: list[dict]) -> str:
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     path = os.path.join(REPORTS_DIR, f"jobs_{ts}.csv")
     fieldnames = ["site", "run_type", "title", "url", "score", "compatible",
-                  "matched_categories", "checked_at"]
+                  "matched_categories", "stage2_checked", "checked_at"]
     with open(path, "w", newline="", encoding="utf-8-sig") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
@@ -106,8 +146,13 @@ def main():
     data = storage.load()
     all_rows = []
 
-    for site in sites:
-        all_rows.extend(process_site(site, data))
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        try:
+            for site in sites:
+                all_rows.extend(process_site(site, data, browser))
+        finally:
+            browser.close()
 
     storage.save(data)
 
@@ -119,8 +164,10 @@ def main():
         print("\nNo new/baseline jobs found this run.")
         return
 
+    stage2_checked = sum(1 for r in all_rows if r["stage2_checked"])
     print(f"\n{'=' * 60}")
-    print(f"TOTAL evaluated: {len(all_rows)} | COMPATIBLE (>=75%): {len(compatible_rows)}")
+    print(f"TOTAL evaluated: {len(all_rows)} | COMPATIBLE (>=75%): {len(compatible_rows)} "
+          f"| stage-2 refined: {stage2_checked}/{MAX_STAGE2_FETCHES_PER_RUN} cap")
     print(f"{'=' * 60}")
     for r in compatible_rows:
         print(f"[{r['site']}] ({r['score']}%) {r['title']}\n    {r['url']}")

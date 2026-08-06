@@ -214,3 +214,6 @@ Check a box on GitHub once you've submitted your application for that job.
 - [ ] **Priority Software** — Junior Core Developer (90%) — [link](https://www.priority-software.com/careers/junior-core-developer-2/)
 - [ ] **Priority Software** — Full Stack Web Developer (85%) — [link](https://www.priority-software.com/careers/full-stack-web-developer/)
 - [ ] **איכילוב** — # 198546 גוש דן 12/7/2026 מפתח.ת טכנולוגיות למידה אנחנו מחפשים מפתח.ת למידה בתחילת הדרך המקצועית, עם תשוקה לעולמות הלמידה הדיגיטלית והטכנולוגיה, לצוות הלמידה והפיתוח הארגוני של איכילוב. הזדמנות מצוינת לבוגרי.ות תואר בטכנולוגיות למידה להשתלב בארגון מוביל, לצבור ניסיון מעשי ולהיות חלק מפיתוח פתרונות 0 (95%) — [link](https://jobs.tasmc.org.il/Positions/redmatch-apply/redmatch.apply.html?compPositionID=198546)
+
+- [ ] **Nvidia** — Software Engineer - NVLink GPU Networking JR2016557 Israel, Tel Aviv + 1 more (100%) — [link](https://jobs.nvidia.com/careers/job/893394927938)
+- [ ] **Nvidia** — Software Engineer, Storage JR2005235 Israel, Raanana (100%) — [link](https://jobs.nvidia.com/careers/job/893391850600)

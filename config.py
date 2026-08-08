@@ -138,7 +138,205 @@ SITES = [
     {"name": "מדיקל סנטר הרצליה", "url": "https://hmc.co.il/%D7%93%D7%A8%D7%95%D7%A9%D7%99%D7%9D/%D7%9B%D7%9C-%D7%94%D7%9E%D7%A9%D7%A8%D7%95%D7%AA-%D7%94%D7%A4%D7%AA%D7%95%D7%97%D7%95%D7%AA/"},
     {"name": "רשות שדות התעופה", "url": "https://www.iaa.gov.il/about/jobs/"},
     {"name": "חברת החשמל", "url": "https://careers.iec.co.il/?referid=&freeText=&profs%5B%5D=15%2C44&page=1"},
-    #{"name": "", "url": ""},
+    {
+    "name": "Truecaller",
+    "url": "https://www.truecaller.com/careers/jobs"
+  },
+  {
+    "name": "ScaleOps",
+    "url": "https://scaleops.com/careers/"
+  },
+  {
+    "name": "Zesty",
+    "url": "https://zesty.co/careers/"
+  },
+  {
+    "name": "Knot",
+    "url": "https://www.knotapi.com/careers/"
+  },
+  {
+    "name": "Melio",
+    "url": "https://www.lifeatmelio.com/"
+  },
+  {
+    "name": "Silverfort",
+    "url": "https://www.silverfort.com/careers/"
+  },
+  {
+    "name": "8fig",
+    "url": "https://www.8fig.co/jobs/"
+  },
+  {
+    "name": "WeSki",
+    "url": "https://apply.workable.com/weski/"
+  },
+  {
+    "name": "Elementor",
+    "url": "https://elementor.careers/explore/"
+  },
+  {
+    "name": "Chargeflow",
+    "url": "https://www.chargeflow.io/careers"
+  },
+  {
+    "name": "Autofleet",
+    "url": "https://autofleet.io/careers"
+  },
+  {
+    "name": "Suridata",
+    "url": "https://www.suridata.ai/careers/"
+  },
+  {
+    "name": "Loox",
+    "url": "https://loox.app/careers"
+  },
+  {
+    "name": "Superwise.ai",
+    "url": "https://superwise.ai/careers/"
+  },
+  {
+    "name": "buywith",
+    "url": "https://www.buywith.com/careers"
+  },
+  {
+    "name": "Arpeely",
+    "url": "https://www.arpeely.com/joinus"
+  },
+  {
+    "name": "Salesforce",
+    "url": "https://www.salesforce.com/company/careers/jobs/"
+  },
+  {
+    "name": "DoorLoop",
+    "url": "https://www.doorloop.com/careers"
+  },
+  {
+    "name": "BeamUP",
+    "url": "https://job-boards.greenhouse.io/beamup"
+  },
+  {
+    "name": "SkyPath",
+    "url": "https://skypath.breezy.hr/"
+  },
+  {
+    "name": "Applitools",
+    "url": "https://applitools.com/company/careers/"
+  },
+  {
+    "name": "Fireblocks",
+    "url": "https://www.fireblocks.com/careers"
+  },
+  {
+    "name": "Clinch",
+    "url": "https://clinch.co/careers"
+  },
+  {
+    "name": "ForwardAI",
+    "url": "https://www.forwardai.com/careers"
+  },
+  {
+    "name": "Nexxen",
+    "url": "https://nexxen.com/careers/"
+  },
+  {
+    "name": "AirEye",
+    "url": "https://aireye.tech/careers/"
+  },
+  {
+    "name": "aiOla",
+    "url": "https://aiola.ai/careers/"
+  },
+  {
+    "name": "Seal Security",
+    "url": "https://www.seal.security/company/careers"
+  },
+  {
+    "name": "Zenity",
+    "url": "https://zenity.io/careers"
+  },
+  {
+    "name": "Sentra",
+    "url": "https://sentra.io/careers"
+  },
+  {
+    "name": "Chaos Labs",
+    "url": "https://chaoslabs.xyz/careers"
+  },
+  {
+    "name": "Seraphic Security",
+    "url": "https://seraphicsecurity.com/careers/"
+  },
+  {
+    "name": "D-ID",
+    "url": "https://www.d-id.com/careers/"
+  },
+  {
+    "name": "Forter",
+    "url": "https://www.forter.com/job-opportunities/"
+  },
+  {
+    "name": "Island",
+    "url": "https://www.island.io/careers"
+  },
+  {
+    "name": "Tipalti",
+    "url": "https://tipalti.com/company/careers/"
+  },
+  {
+    "name": "Tastewise",
+    "url": "https://tastewise.io/careers"
+  },
+  {
+    "name": "ZipRecruiter",
+    "url": "https://www.ziprecruiter.com/careers"
+  },
+  {
+    "name": "Artlist",
+    "url": "https://www.artlistjobs.io/"
+  },
+  {
+    "name": "Navina AI",
+    "url": "https://www.navina.ai/careers"
+  },
+  {
+    "name": "Liquidity Group",
+    "url": "https://www.liquidity.com/ca/careers"
+  },
+  {
+    "name": "Viola Credit",
+    "url": "https://careers.viola-group.com/jobs"
+  },
+  {
+    "name": "Vim",
+    "url": "https://getvim.com/careers/"
+  },
+  {
+    "name": "Lemonade",
+    "url": "https://makers.lemonade.com/"
+  },
+  {
+    "name": "K Health",
+    "url": "https://khealth.com/careers"
+  },
+  {
+    "name": "CrowdStrike",
+    "url": "https://www.crowdstrike.com/en-us/careers/"
+  },
+  {
+    "name": "Bond Sports",
+    "url": "https://www.comeet.com/jobs/bondsports/F7.009"
+  },
+  {
+    "name": "Connecteam",
+    "url": "https://connecteam.com/careers/"
+  },
+  {
+    "name": "Onyx Security",
+    "url": "https://www.onyx.security/careers"
+  },
+  {
+    "name": "NVIDIA",
+    "url": "https://www.nvidia.com/en-us/about-nvidia/careers/"},
 ]
 
 # Compatibility keyword sets (English + Hebrew). A candidate job title/snippet

@@ -105,3 +105,15 @@ Check a box on GitHub once you've submitted your application for that job.
 
 - [ ] **Nvidia** — Software Engineer - NVLink GPU Networking JR2016557 Israel, Tel Aviv + 1 more (100%) — [link](https://jobs.nvidia.com/careers/job/893394927938)
 - [ ] **Nvidia** — Software Engineer, Storage JR2005235 Israel, Raanana (100%) — [link](https://jobs.nvidia.com/careers/job/893391850600)
+
+## 2026-08-08
+- [ ] **ScaleOps** — AI Engineer Tel Aviv Apply Online (100%) — [link](https://scaleops.com/careers/job/4913574101/ai-engineer/)
+- [ ] **ScaleOps** — Frontend Engineer Tel Aviv Apply Online (100%) — [link](https://scaleops.com/careers/job/4919422101/frontend-engineer/)
+- [ ] **ScaleOps** — Infra Engineer Tel Aviv Apply Online (100%) — [link](https://scaleops.com/careers/job/4919428101/infra-engineer/)
+- [ ] **ScaleOps** — Backend Engineer Tel Aviv Apply Online (100%) — [link](https://scaleops.com/careers/job/4944210101/backend-engineer/)
+- [ ] **Fireblocks** — Professional Services Engineer (90%) — [link](https://www.fireblocks.com/careers/position?gh_jid=4697483006)
+- [ ] **ForwardAI** — Developer Documentation (85%) — [link](https://docs.forwardai.com)
+- [ ] **Island** — Salesforce Automation Engineer (AI & Processes) Tel Aviv (95%) — [link](https://www.island.io/positions/position-a3_95d)
+- [ ] **Island** — Fullstack Software Engineer Warsaw (85%) — [link](https://www.island.io/positions/position-0D_25D)
+- [ ] **NVIDIA** — Nsight Explore NVIDIA developer tools for AI, graphics, and HPC (85%) — [link](https://developer.nvidia.com/tools-overview)
+- [ ] **NVIDIA** — Architecture, Engineering, Construction & Operations (85%) — [link](https://www.nvidia.com/en-us/industries/aec/)

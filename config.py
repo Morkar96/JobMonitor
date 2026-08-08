@@ -334,9 +334,6 @@ SITES = [
     "name": "Onyx Security",
     "url": "https://www.onyx.security/careers"
   },
-  {
-    "name": "NVIDIA",
-    "url": "https://www.nvidia.com/en-us/about-nvidia/careers/"},
 ]
 
 # Compatibility keyword sets (English + Hebrew). A candidate job title/snippet

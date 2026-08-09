@@ -334,7 +334,6 @@ SITES = [
     "name": "Onyx Security",
     "url": "https://www.onyx.security/careers"
   },
-  },
   {
     "name": "אינטרנט רימון",
     "url": "https://rimon.net.il/open-positions/"

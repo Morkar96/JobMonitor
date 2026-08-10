@@ -2,7 +2,8 @@ name: Daily Job Monitor
 
 on:
   schedule:
-    - cron: "0 6 * * *"
+    - cron: "0 13 * * *"
+    timezone: "Asia/Jerusalem"
   workflow_dispatch: {}
 
 permissions:

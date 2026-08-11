@@ -2,8 +2,10 @@ name: Daily Job Monitor
 
 on:
   schedule:
-    - cron: "0 13 * * *"
-    timezone: "Asia/Jerusalem"
+    # GitHub Actions cron always runs in UTC -- there's no "timezone" field
+    # for the schedule trigger. 10:00 UTC = 13:00 Israel time during IDT
+    # (summer, UTC+3); during IST (winter, UTC+2) this runs at 12:00 instead.
+    - cron: "0 10 * * *"
   workflow_dispatch: {}
 
 permissions:

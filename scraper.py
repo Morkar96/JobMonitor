@@ -7,6 +7,7 @@ use Playwright (headless Chromium) to render the page before parsing.
 
 from __future__ import annotations
 
+import csv
 import json
 import re
 import ssl
@@ -297,6 +298,36 @@ def _extract_oracle_hcm_api(site: dict) -> list[dict]:
     return candidates
 
 
+_TECHMAP_SKIP_LEVELS = {"Manager", "Tech Lead", "Architect", "Executive"}
+
+
+def _extract_techmap_csv(site: dict) -> list[dict]:
+    """techmap (https://github.com/mluggy/techmap) publishes a daily CSV of
+    open software roles aggregated across ~1000 Israeli tech companies' ATS
+    boards -- one more candidate source alongside our own per-site scrapers,
+    without having to scrape each of those companies ourselves. Its `level`
+    column is only a coarse IC-vs-management split (not IC seniority), so we
+    just use it to drop obvious non-IC tracks early; title-based junior/
+    senior scoring still happens downstream like any other candidate."""
+    req = urllib.request.Request(site["url"], headers=_API_HEADERS)
+    with urllib.request.urlopen(req, timeout=20, context=_SSL_CONTEXT) as resp:
+        text = resp.read().decode("utf-8-sig")
+
+    candidates = []
+    for row in csv.DictReader(text.splitlines()):
+        if row.get("level") in _TECHMAP_SKIP_LEVELS:
+            continue
+        title = (row.get("title") or "").strip()
+        job_url = (row.get("url") or "").strip()
+        if not title or not job_url:
+            continue
+        company = row.get("company") or ""
+        city = row.get("city") or ""
+        display_title = f"{title} - {company}" + (f" ({city})" if city else "")
+        candidates.append({"title": display_title, "url": job_url})
+    return candidates
+
+
 def fetch_job_candidates(site: dict, browser) -> list[dict]:
     """Return a de-duplicated list of {"title": ..., "url": ...} candidate
     job postings for a site. Sites backed by a known JSON API are queried
@@ -313,6 +344,8 @@ def fetch_job_candidates(site: dict, browser) -> list[dict]:
         return _extract_oracle_hcm_api(site)
     if engine == "greenhouse_api":
         return _extract_greenhouse_api(site)
+    if engine == "techmap_csv":
+        return _extract_techmap_csv(site)
 
     html = _render_page(site["url"], browser, wait_selector=site.get("wait_selector"))
 

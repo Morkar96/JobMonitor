@@ -238,5 +238,10 @@ def score_job_llm(title: str, extra_text: str = "") -> dict:
         "senior_conflict": senior_conflict,
         "foreign_conflict": foreign_conflict,
         "non_job_content": non_job_content,
+        # the LLM already scores role_match=false (semantically) for
+        # hardware/mechanical/etc titles, so there's no separate signal to
+        # extract here -- this key only exists for shape parity with
+        # matcher_keywords.py, whose bare "engineer" keyword needs one.
+        "non_software_conflict": False,
         "reasoning": result.get("reasoning", ""),
     }

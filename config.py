@@ -12,6 +12,14 @@ Each site entry:
 """
 
 SITES = [
+    {
+        # Daily-updated CSV of open software roles aggregated across ~1000
+        # Israeli tech companies' ATS boards: https://github.com/mluggy/techmap
+        # No Playwright rendering needed -- it's a plain CSV download.
+        "name": "TechMap (Israeli Tech Jobs - Software)",
+        "url": "https://raw.githubusercontent.com/mluggy/techmap/main/jobs/software.csv",
+        "engine": "techmap_csv",
+    },
     {"name": "HiBob", "url": "https://www.hibob.com/careers/"},
     {"name": "Essence Group", "url": "https://www.essence-grp.com/jobs/"},
     {"name": "Silverfort", "url": "https://www.silverfort.com/careers/#jobs"},
@@ -344,12 +352,30 @@ SITES = [
 # Compatibility keyword sets (English + Hebrew). A candidate job title/snippet
 # is scored against these three categories.
 KEYWORDS = {
+    # Unambiguous role words -- these are essentially never used for a
+    # non-software title, so a bare match is enough. Notably this does NOT
+    # include bare "engineer" or Hebrew "מפתח" -- see role_ambiguous below.
     "role": [
         "developer", "software engineer", "programmer", "full stack",
-        "fullstack", "backend", "back-end",
-        "engineer", "coder",
-        "מתכנת", "מתכנת/ת", "מתכנתת", "מפתח", "מפתח/ת", "מפתחת",
+        "fullstack", "full-stack", "backend", "back-end", "coder",
+        "מתכנת", "מתכנת/ת", "מתכנתת",
         "תוכניתן", "תוכניתן/ית", "תוכניתנית", "הנדסת תוכנה", "פיתוח תוכנה",
+    ],
+    # "engineer" and Hebrew "מפתח"/"מהנדס" (developer/engineer) are used just
+    # as often for hardware/mechanical/electrical/systems roles as for
+    # software ones -- especially at defense/hardware companies (Elbit, IAI,
+    # Rafael, etc). A bare match on these means nothing on its own; only
+    # counts as a role match when paired with role_software_qualifier below.
+    "role_ambiguous": [
+        "engineer", "מהנדס", "מהנדס/ת", "מהנדסת", "מפתח", "מפתח/ת", "מפתחת",
+    ],
+    "role_software_qualifier": [
+        "software", "תוכנה", "algorithm", "אלגוריתם", "devops", "platform",
+        "compiler", "deployment", "database", "solutions", "solution",
+        "detection", "mlops", "sdk", "cloud", "data engineer",
+        "release engineer", "build engineer", "site reliability",
+        "automation", "web", "api", "python", "java", "c++", ".net", "node",
+        "golang", "ios", "android", "sw ", " sw",
     ],
     "level_junior": [
         "junior", "jr.", "jr ", "entry level", "entry-level", "graduate",
@@ -412,6 +438,21 @@ KEYWORDS = {
         "los angeles", "sandy, ut", "vancouver", "toronto", "krakow", "krakw",
         "oslo", "beijing", "buenos aires", "guadalajara", "durham",
         "phoenix", "sao paulo", "são paulo",
+    ],
+    # Backstop disqualifier for non-software engineering disciplines that
+    # can still slip past the role_ambiguous + role_software_qualifier gate
+    # above (e.g. a title that happens to pair "engineer" with a qualifier
+    # word for unrelated reasons -- "Backend STA Engineer" is chip design's
+    # "static timing analysis", not a software backend).
+    "role_non_software": [
+        "hardware engineer", "electronics engineer", "electrical engineer",
+        "mechanical engineer", "chemical engineer", "process engineer",
+        "process development", "manufacturing engineer", "production integration",
+        "quality engineer", "optical engineer", "thermal engineer",
+        "structural engineer", "propulsion", "avionics", "magnetic engineer",
+        "rf engineer", "analog design", "chip design", "asic design",
+        "mems", "device physics", "civil engineer", "industrial engineer",
+        "sta engineer",
     ],
 }
 

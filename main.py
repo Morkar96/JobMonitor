@@ -79,7 +79,8 @@ def evaluate_job(job: dict, browser) -> dict:
     if result["compatible"] and not refined["compatible"]:
         reason = "non-job content" if refined.get("non_job_content") else (
             "senior/experience" if refined.get("senior_conflict") else (
-            "foreign location" if refined.get("foreign_conflict") else "score"))
+            "foreign location" if refined.get("foreign_conflict") else (
+            "non-software role" if refined.get("non_software_conflict") else "score")))
         print(f"    [stage2/{refined['engine']}] demoted ({reason}) after reading full posting: {job['title'][:60]}")
     return refined
 

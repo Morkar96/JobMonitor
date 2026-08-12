@@ -346,11 +346,6 @@ SITES = [
     "name": "אינטרנט רימון",
     "url": "https://rimon.net.il/open-positions/"
   },
-  {
-    "name": "Linkedin",
-    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4449524088&keywords=Junior%20Software%20Developer%20Entry%20level%20Remote%20or%20Hybrid&origin=JOB_SEARCH_PAGE_JOB_FILTER&referralSearchId=l%2Fe%2FgNF9xQypRi%2Fe4QQBHQ%3D%3D&geoId=102981967&distance=25.0&f_TPR=r86400&f_SAL=f_SA_id_227001%3A276001"
-  },
-  
 ]
 
 # Compatibility keyword sets (English + Hebrew). A candidate job title/snippet

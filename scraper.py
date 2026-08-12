@@ -89,12 +89,42 @@ def _render_page(url: str, browser, wait_selector: str | None = None, timeout_ms
     return html
 
 
-def fetch_job_detail_text(url: str, browser, max_chars: int = 4000, timeout_ms: int = 15000) -> str:
+def _dedupe_repeated_text(text: str, min_chunk_len: int = 20) -> str:
+    """Some sites re-render the same block of text many times on one page --
+    LinkedIn's logged-out view repeats its "sign in to apply" prompt (with
+    the full user agreement/cookie policy sentence) roughly once per
+    interactive element, which can be 1500-2000+ characters of pure noise
+    before the real posting text even starts. Left in, that eats into our
+    truncation budget and can push the actual requirements past max_chars
+    entirely. Split on sentence boundaries and drop exact repeats (keeping
+    the first occurrence), independent of language."""
+    seen = set()
+    kept = []
+    for chunk in re.split(r"(?<=[.!?])\s+", text):
+        key = chunk.strip()
+        if len(key) >= min_chunk_len:
+            if key in seen:
+                continue
+            seen.add(key)
+        kept.append(chunk)
+    return " ".join(kept)
+
+
+def fetch_job_detail_text(url: str, browser, max_chars: int = 8000, timeout_ms: int = 15000) -> str:
     """Render a single job posting page and return its visible body text,
     truncated. Used for stage-2 refinement in main.py: a job that looked
     compatible from its title alone gets re-checked against the real
     posting body, which often states experience/location requirements the
-    title/link text never mentioned."""
+    title/link text never mentioned.
+
+    max_chars was originally 4000, tuned against our own (mostly compact)
+    per-company career pages. LinkedIn's logged-out view -- now a common
+    source via techmap -- front-loads ~2000-3000 characters of repeated
+    "sign in to apply" boilerplate before the real posting text, which was
+    pushing genuine requirements (e.g. "3+ years") right up against or past
+    that cutoff. Raised to 8000, which comfortably covers full LinkedIn
+    pages (measured 7-9k chars) while barely affecting shorter ATS pages
+    (Comeet pages run 2.5-3.5k chars total, well under either cap)."""
     page = browser.new_page(user_agent=_UA)
     try:
         try:
@@ -109,6 +139,7 @@ def fetch_job_detail_text(url: str, browser, max_chars: int = 4000, timeout_ms: 
     for tag in soup(["script", "style", "nav", "footer", "header", "noscript"]):
         tag.decompose()
     text = soup.get_text(" ", strip=True)
+    text = _dedupe_repeated_text(text)
     return text[:max_chars]
 
 

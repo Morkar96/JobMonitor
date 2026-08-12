@@ -323,8 +323,15 @@ def _extract_techmap_csv(site: dict) -> list[dict]:
             continue
         company = row.get("company") or ""
         city = row.get("city") or ""
-        display_title = f"{title} - {company}" + (f" ({city})" if city else "")
-        candidates.append({"title": display_title, "url": job_url})
+        # city stays folded into the scored title (location keyword matching
+        # needs it); company is kept separate so main.py/tracker.py can show
+        # it as the actual employer instead of the generic "TechMap" source
+        # name -- these postings live on LinkedIn/Comeet, not on techmap.
+        display_title = f"{title} ({city})" if city else title
+        candidate = {"title": display_title, "url": job_url}
+        if company:
+            candidate["company"] = company
+        candidates.append(candidate)
     return candidates
 
 

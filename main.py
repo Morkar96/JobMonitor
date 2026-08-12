@@ -118,6 +118,7 @@ def process_site(site: dict, data: dict, browser) -> list[dict]:
         result = evaluate_job(job, browser)
         rows.append({
             "site": name,
+            "company": job.get("company"),
             "run_type": run_type,
             "title": job["title"],
             "url": job["url"],
@@ -139,7 +140,7 @@ def write_report(rows: list[dict]) -> str:
     os.makedirs(REPORTS_DIR, exist_ok=True)
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     path = os.path.join(REPORTS_DIR, f"jobs_{ts}.csv")
-    fieldnames = ["site", "run_type", "title", "url", "score", "compatible",
+    fieldnames = ["site", "company", "run_type", "title", "url", "score", "compatible",
                   "matched_categories", "stage2_checked", "engine", "checked_at"]
     with open(path, "w", newline="", encoding="utf-8-sig") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)

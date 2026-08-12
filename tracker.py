@@ -52,7 +52,10 @@ def append_relevant_jobs(rows: list[dict], path: str = TRACKER_PATH):
 
     header = f"## {date.today().isoformat()}"
     bullets = "\n".join(
-        f"- [ ] **{r['site']}** — {_flatten(r['title'])} ({r['score']}%) — [link]({r['url']})"
+        # For aggregator sources (e.g. techmap), the site name is just the
+        # feed, not the employer -- prefer the actual company when we have
+        # one so the entry reads as "Check Point" instead of "TechMap".
+        f"- [ ] **{r.get('company') or r['site']}** — {_flatten(r['title'])} ({r['score']}%) — [link]({r['url']})"
         for r in rows
     )
 

@@ -303,3 +303,9 @@ Check a box on GitHub once you've submitted your application for that job.
 - [ ] **Varonis Systems ** — Data Engineer - Israel (95%) — [link](https://app.jobvite.com/CompanyJobs/Job.aspx?j=ovaAAfwz&l=CFtKVfwx)
 - [ ] **Chargeflow** — Developers Hub (85%) — [link](https://docs.chargeflow.io/)
 - [ ] **Fireblocks** — Product Manager , Developer Experience (85%) — [link](https://www.fireblocks.com/careers/position?gh_jid=4702155006)
+
+## 2026-08-12
+- [ ] **TechMap (Israeli Tech Jobs - Software)** — Back End Developer - Pango (פתח תקווה) (100%) — [link](https://il.linkedin.com/jobs/view/back-end-developer-at-pango-4450120741?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
+- [ ] **TechMap (Israeli Tech Jobs - Software)** — Software Engineer - WSSI Team (Windows Silicon System Integration) - Microsoft (הרצליה) (100%) — [link](https://il.linkedin.com/jobs/view/software-engineer-wssi-team-windows-silicon-system-integration-at-microsoft-4452443885?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
+- [ ] **TechMap (Israeli Tech Jobs - Software)** — Software Engineer - NVLink GPU Networking - Nvidia (יקנעם עילית) (100%) — [link](https://il.linkedin.com/jobs/view/software-engineer-nvlink-gpu-networking-at-nvidia-4447675052?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
+- [ ] **TechMap (Israeli Tech Jobs - Software)** — Production Service Developer 2 - Oracle (פתח תקווה) (100%) — [link](https://il.linkedin.com/jobs/view/production-service-developer-2-at-oracle-4443261806?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)

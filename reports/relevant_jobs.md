@@ -315,3 +315,6 @@ Check a box on GitHub once you've submitted your application for that job.
 - [x] **Check Point Software Technologies** — Software Developer - Identity Next (תל אביב-יפו) (100%) — [link](https://il.linkedin.com/jobs/view/software-developer-identity-next-at-check-point-software-4449867187?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
 - [x] **Viola Credit** — Backend Engineer (85%) — [link](https://careers.viola-group.com/companies/bringg/jobs/89680382-backend-engineer#content)
 - [x] **Viola Credit** — Junior DevOps Engineer (100%) — [link](https://api.dueto.io/Redirect/H88tBWKNrEg?utm_source=Viola+Group+job+board&utm_medium=getro.com&gh_src=Viola+Group+job+board)
+
+## 2026-08-14
+- [ ] **Amazon Israel** — Software Development Engineer, Prime Video Sports (100%) — [link](https://www.amazon.jobs/jobs/10449203)

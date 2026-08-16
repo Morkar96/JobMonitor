@@ -317,4 +317,4 @@ Check a box on GitHub once you've submitted your application for that job.
 - [x] **Viola Credit** — Junior DevOps Engineer (100%) — [link](https://api.dueto.io/Redirect/H88tBWKNrEg?utm_source=Viola+Group+job+board&utm_medium=getro.com&gh_src=Viola+Group+job+board)
 
 ## 2026-08-14
-- [ ] **Amazon Israel** — Software Development Engineer, Prime Video Sports (100%) — [link](https://www.amazon.jobs/jobs/10449203)
+- [x] **Amazon Israel** — Software Development Engineer, Prime Video Sports (100%) — [link](https://www.amazon.jobs/jobs/10449203)

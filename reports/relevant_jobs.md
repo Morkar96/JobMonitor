@@ -318,3 +318,6 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-08-14
 - [x] **Amazon Israel** — Software Development Engineer, Prime Video Sports (100%) — [link](https://www.amazon.jobs/jobs/10449203)
+
+## 2026-08-16
+- [ ] **Nvidia** — Manager, System Software Engineering - Factory JR2021001 US, CA, Santa Clara (85%) — [link](https://jobs.nvidia.com/careers/job/893396247525)

@@ -321,3 +321,6 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-08-16
 - [ ] **Nvidia** — Manager, System Software Engineering - Factory JR2021001 US, CA, Santa Clara (85%) — [link](https://jobs.nvidia.com/careers/job/893396247525)
+
+## 2026-08-17
+- [ ] **Nvidia** — Manager, Infrastructure Engineering and DevOps JR2023224 Israel, Yokneam (95%) — [link](https://jobs.nvidia.com/careers/job/893397045353)

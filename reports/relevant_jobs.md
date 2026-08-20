@@ -16,3 +16,6 @@ Check a box on GitHub once you've submitted your application for that job.
 - [x] **AppDome** — Software Engineer (תל אביב-יפו) (100%) — [link](https://il.linkedin.com/jobs/view/software-engineer-at-appdome-4451769830?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
 
 - [ ] **CathWorks** — Software QA Automation Engineer (100%) — [link](https://cathworks.bamboohr.com/careers/84)
+
+## 2026-08-20
+- [ ] **Rubrik** — Software Engineer, Atlas Distributed Systems - Palo Alto, CA (85%) — [link](https://www.rubrik.com/company/careers/departments/job.8122613?gh_jid=8122613)

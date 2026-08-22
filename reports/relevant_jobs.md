@@ -19,3 +19,6 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-08-20
 - [ ] **Rubrik** — Software Engineer, Atlas Distributed Systems - Palo Alto, CA (85%) — [link](https://www.rubrik.com/company/careers/departments/job.8122613?gh_jid=8122613)
+
+## 2026-08-22
+- [ ] **Nvidia** — Software Engineer, SONiC JR2023435 Israel, Raanana + 1 more (100%) — [link](https://jobs.nvidia.com/careers/job/893397238221)

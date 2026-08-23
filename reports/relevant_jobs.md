@@ -22,3 +22,6 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-08-22
 - [ ] **Nvidia** — Software Engineer, SONiC JR2023435 Israel, Raanana + 1 more (100%) — [link](https://jobs.nvidia.com/careers/job/893397238221)
+
+## 2026-08-23
+- [ ] **Nvidia** — Manager, Distinguished Engineer - DGX Systems Software JR2016463 US, CA, Santa Clara + 1 more Remote (85%) — [link](https://jobs.nvidia.com/careers/job/893394774097)

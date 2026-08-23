@@ -329,6 +329,39 @@ def _extract_oracle_hcm_api(site: dict) -> list[dict]:
     return candidates
 
 
+def _extract_shufersal(site: dict, browser) -> list[dict]:
+    """Shufersal's career page (a Wix site) loads all positions via a POST
+    to a Velo backend method (Position.jsw/searchPosition.ajax) rather than
+    rendering real links -- the generic scraper only ever sees Wix chrome
+    (nav links, footer), never an actual job. The endpoint also 401s when
+    called directly (needs session context from the page load), so capture
+    its response through an already-open page instead of hitting it as a
+    standalone API."""
+    page = browser.new_page(user_agent=_UA)
+    try:
+        with page.expect_response(
+            lambda r: "searchPosition" in r.url, timeout=25000
+        ) as resp_info:
+            page.goto(site["url"], wait_until="load", timeout=25000)
+        payload = resp_info.value.json()
+    finally:
+        page.close()
+
+    candidates = []
+    for job in payload.get("result", []):
+        title = (job.get("description") or "").strip()
+        order_id = job.get("order_id")
+        if not title or order_id is None:
+            continue
+        area = job.get("work_area") or ""
+        display_title = f"{title} ({area})" if area else title
+        # No real per-job deep link exists (client-side filtered SPA) -- this
+        # at least gives a unique, stable URL per posting for dedup/tracking.
+        job_url = f"{site['url']}?position={order_id}"
+        candidates.append({"title": display_title, "url": job_url})
+    return candidates
+
+
 _TECHMAP_SKIP_LEVELS = {"Manager", "Tech Lead", "Architect", "Executive"}
 
 
@@ -384,9 +417,29 @@ def fetch_job_candidates(site: dict, browser) -> list[dict]:
         return _extract_greenhouse_api(site)
     if engine == "techmap_csv":
         return _extract_techmap_csv(site)
+    if engine == "shufersal":
+        return _extract_shufersal(site, browser)
+
+    extract = (
+        (lambda h: _extract_workday(h, site["url"]))
+        if engine == "workday"
+        else (lambda h: _extract_generic(h, site["url"]))
+    )
 
     html = _render_page(site["url"], browser, wait_selector=site.get("wait_selector"))
+    candidates = extract(html)
+    if candidates:
+        return candidates
 
-    if engine == "workday":
-        return _extract_workday(html, site["url"])
-    return _extract_generic(html, site["url"])
+    # A real page that's still loading (slow/analytics-heavy sites can keep
+    # "networkidle" from ever firing, e.g. a continuous chat-widget poll)
+    # can render with zero real content on the first attempt -- found via
+    # sites (Nanox, Strauss Group) that returned real jobs on a manual
+    # re-check but had recorded 0 candidates on every scheduled run for
+    # days straight. Retry once with more time before concluding the site
+    # genuinely has nothing, rather than silently locking in an empty
+    # baseline that then looks like "0 open positions" indefinitely.
+    html = _render_page(
+        site["url"], browser, wait_selector=site.get("wait_selector"), timeout_ms=40000
+    )
+    return extract(html)

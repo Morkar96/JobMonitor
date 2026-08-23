@@ -203,10 +203,6 @@ SITES = [
     "url": "https://superwise.ai/careers/"
   },
   {
-    "name": "buywith",
-    "url": "https://www.buywith.com/careers"
-  },
-  {
     "name": "Arpeely",
     "url": "https://www.arpeely.com/joinus"
   },
@@ -295,10 +291,6 @@ SITES = [
     "url": "https://tastewise.io/careers"
   },
   {
-    "name": "ZipRecruiter",
-    "url": "https://www.ziprecruiter.com/careers"
-  },
-  {
     "name": "Artlist",
     "url": "https://www.artlistjobs.io/"
   },
@@ -358,7 +350,6 @@ SITES = [
   {"name": "Ibex Medical Analytics", "url": "https://ibex-ai.com/careers/"},
   {"name": "Theranica", "url": "https://theranica.com/careers/"},
   {"name": "Edwards Lifesciences", "url": "https://www.edwards.com/careers/locations/israel"},
-  {"name": "Biosense Webster (Johnson & Johnson)", "url": "https://www.jnjcareers.co.il/en/biosense-webster"},
   {"name": "GE HealthCare", "url": "https://careers.gehealthcare.com/global/en/search-results"},
   {"name": "Philips Israel", "url": "https://www.careers.philips.com/il/en"},
   {"name": "בזק", "url": "https://www.bezeq.co.il/career_new/"},
@@ -366,7 +357,7 @@ SITES = [
   {"name": "קבוצת שטראוס", "url": "https://www.strauss-group.com/work-strauss/"},
   {"name": "סלקום", "url": "https://cellcom.co.il/jobs/Careers/"},
   {"name": "פרטנר", "url": "https://www.partner.co.il/partnerjobs"},
-  {"name": "שופרסל", "url": "https://career.shufersal.co.il/"},
+  {"name": "שופרסל", "url": "https://career.shufersal.co.il/", "engine": "shufersal"},
   {"name": "קוקה קולה ישראל (CBC Group)", "url": "https://careers.cbcgroup.co.il/cocacola/"},
   {"name": "בנק הפועלים", "url": "https://www.bankhapoalim.co.il/he/jobs-site"},
   {"name": "אל על", "url": "https://www.elal.com/heb/career/welcome"},

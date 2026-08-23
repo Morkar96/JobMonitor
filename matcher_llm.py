@@ -116,14 +116,16 @@ so -- never guess a conflict from silence.
 - level_match: Is this appropriate for someone with 0-2 years of experience
   (junior, entry-level, new grad, no explicit senior requirement)?
 - level_explicitly_senior: Does the text explicitly require a senior/mid-level
-  candidate? This includes the obvious titles ("senior", "staff",
-  "principal", "team/tech lead") AND any explicit experience requirement
-  above 2 years in any phrasing -- "3+ years", "3 years", "3-5 years",
-  a Hebrew phrase like "ניסיון של 3 שנים", or describing the candidate as
-  "experienced"/"מנוסה" rather than junior/entry-level. This should be
-  true even if level_match above is false for the same reason -- it's a
-  stronger, outright-disqualifying signal, not just an absence of a
-  junior signal.
+  candidate, OR is this a people-management/management-track role rather
+  than an individual-contributor one? This includes the obvious titles
+  ("senior", "staff", "principal", "team/tech lead", "manager"/"מנהל" in any
+  form -- e.g. "Engineering Manager", "R&D Manager") AND any explicit
+  experience requirement above 2 years in any phrasing -- "3+ years",
+  "3 years", "3-5 years", a Hebrew phrase like "ניסיון של 3 שנים", or
+  describing the candidate as "experienced"/"מנוסה" rather than
+  junior/entry-level. This should be true even if level_match above is
+  false for the same reason -- it's a stronger, outright-disqualifying
+  signal, not just an absence of a junior signal.
 - location_match: Is the role based in or near central Israel / Gush Dan /
   Tel Aviv area, or remote-within-Israel?
 - location_explicitly_foreign: Does the text explicitly name a location

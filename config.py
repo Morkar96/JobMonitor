@@ -420,6 +420,11 @@ KEYWORDS = {
         "senior", "sr.", "sr ", "sr)", "mid-level", "mid level", "middle level",
         "team lead", "tech lead", "lead developer", "staff ", "staff-",
         "principal ", "principal-", "lead", "director", "experienced",
+        # People-management / management-track roles -- never a 0-2 year
+        # junior IC position, regardless of how well role/location match
+        # (a real gap: "Software Engineering Manager" and "R&D Manager"
+        # postings were scoring as compatible before this was added).
+        "manager", "מנהל", "מנהל/ת", "מנהלת",
         "3+ years", "4+ years", "5+ years", "6+ years", "7+ years",
         "8+ years", "9+ years", "10+ years",
         "3 years", "4 years", "5 years", "6 years", "7 years", "8 years",
@@ -428,7 +433,6 @@ KEYWORDS = {
         "מנוסה/ת", "מנוסה.ת",
         "ניסיון של 3", "ניסיון של 4", "ניסיון של 5", "ניסיון של 6",
         "ניסיון של 7", "ניסיון של 8", "ניסיון של 9", "ניסיון של 10",
-        "מנהל/ת צוות",
     ],
     "location": [
         "israel", "tel aviv", "gush dan", "central israel", "center district",

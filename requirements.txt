@@ -3,3 +3,4 @@ beautifulsoup4>=4.12
 lxml>=5.2
 certifi>=2024.2.2
 requests>=2.31
+pytest>=8.0

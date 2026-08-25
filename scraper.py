@@ -264,7 +264,15 @@ def _extract_hunter_hrms_api(site: dict) -> list[dict]:
     `category_id` from site config (matches the page's own ?cid= param).
     Note: a job's category membership lives in the plural `categoryIds`
     list, not the singular `categoryId` field -- a job's primary category
-    can differ from a secondary category it's also tagged under."""
+    can differ from a secondary category it's also tagged under.
+
+    There is no real per-job URL: the site is a client-side app that never
+    updates the browser URL for any click (category, job, or otherwise) --
+    confirmed no query string or hash it reads either. A "#job-<id>" suffix
+    on the plain listing URL is the honest choice: it navigates to the
+    general jobs page (not a fabricated-looking specific-job link) while
+    still giving each job a unique URL, which storage.py/tracker.py rely on
+    for dedup -- without that they'd collapse every job here into one."""
     api_url = site.get("api_url", "https://niloo-server.herokuapp.com/actions-ta")
     jobs = _fetch_json(api_url, method="POST", body={"cmd": "get-jobs-ext"})
     category_id = site.get("category_id")
@@ -277,7 +285,7 @@ def _extract_hunter_hrms_api(site: dict) -> list[dict]:
         job_id = job.get("jobId")
         if not title or job_id is None:
             continue
-        job_url = f"{base}?cid={category_id}&jobId={job_id}"
+        job_url = f"{base}#job-{job_id}"
         candidates.append({"title": title, "url": job_url})
     return candidates
 
@@ -355,9 +363,12 @@ def _extract_shufersal(site: dict, browser) -> list[dict]:
             continue
         area = job.get("work_area") or ""
         display_title = f"{title} ({area})" if area else title
-        # No real per-job deep link exists (client-side filtered SPA) -- this
-        # at least gives a unique, stable URL per posting for dedup/tracking.
-        job_url = f"{site['url']}?position={order_id}"
+        # No real per-job deep link exists (client-side filtered SPA, doesn't
+        # read query strings or hashes) -- a "#position-<id>" suffix is the
+        # honest choice: it navigates to the general jobs page rather than a
+        # fabricated-looking specific-job link, while still giving each job
+        # a unique URL, which storage.py/tracker.py rely on for dedup.
+        job_url = f"{site['url']}#position-{order_id}"
         candidates.append({"title": display_title, "url": job_url})
     return candidates
 

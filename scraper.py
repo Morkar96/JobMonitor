@@ -46,6 +46,13 @@ NOISE_WORDS = {
     # role/level/location matching despite never being a job posting.
     "blog", "webinar", "read more", "watch now", "watch video",
     "talent community", "קראו עוד", "צפו", "וובינר",
+    # Developer *portals* (API docs, SDKs) are an especially sneaky case --
+    # the word "developer" in the title is exactly our strongest positive
+    # role-match keyword, so these otherwise sail through as compatible
+    # (found via real entries: "Developer Hub", "Kaltura developer suite",
+    # "Media Services for Developers").
+    "developer hub", "developer center", "developer portal",
+    "developer suite", "for developers", "api docs", "api documentation",
 }
 
 # Link text/URLs pointing at these domains are never job postings (blog
@@ -60,7 +67,7 @@ NOISE_DOMAINS = {"youtube.com", "youtu.be", "vimeo.com"}
 # on its own this disqualifies what would otherwise pass on link-text length
 # alone.
 NEGATIVE_URL_WORDS = ["/blog", "/resources", "/solutions", "/products",
-                       "/teams/", "/news", "/press", "/webinar"]
+                       "/teams/", "/news", "/press", "/webinar", "/developer"]
 
 
 def _render_page(url: str, browser, wait_selector: str | None = None, timeout_ms: int = 25000) -> str:
@@ -167,6 +174,11 @@ def _extract_generic(html: str, base_url: str) -> list[dict]:
 
         parsed = urlparse(full_url)
         if any(parsed.netloc.endswith(d) for d in NOISE_DOMAINS):
+            continue
+        # A "developer." subdomain (developer.walkme.com, developer.kaltura.com)
+        # is an API/SDK portal, not a career site -- NEGATIVE_URL_WORDS below
+        # only ever sees the path, so this needs its own check.
+        if parsed.netloc.lower().startswith("developer."):
             continue
 
         # Heuristic: real job-posting links tend to have "job", "career",

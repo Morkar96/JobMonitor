@@ -17,14 +17,7 @@ Check a box on GitHub once you've submitted your application for that job.
 ## 2026-08-22
 - [ ] **Nvidia** — Software Engineer, SONiC JR2023435 Israel, Raanana + 1 more (100%) — [link](https://jobs.nvidia.com/careers/job/893397238221)
 
-## 2026-08-23
-
 ## 2026-08-24
-- [ ] **WalkMe** — Developer Hub (85%) — [link](https://developer.walkme.com/reference/overview/)
-- [ ] **Kaltura** — Kaltura developer suite (85%) — [link](https://corp.kaltura.com/developer-suite/)
-- [ ] **Kaltura** — Developer center (85%) — [link](https://developer.kaltura.com/api-docs/Overview)
-- [ ] **Kaltura** — Media Services for Developers (85%) — [link](https://subscription.kaltura.com/purchase-manager/purchase-manager/media-services-free-trial)
-- [ ] **Rapyd** — Developer Center (95%) — [link](https://www.rapyd.net/developers/)
 - [ ] **VAST Data** — Graduate QA Automation Engineer Israel - Haifa Engineering (100%) — [link](https://www.comeet.com/jobs/vastdata/43.001/graduate-qa-automation-engineer/8F.946)
 - [ ] **VAST Data** — QA Automation Engineer Israel - Haifa Engineering (95%) — [link](https://www.comeet.com/jobs/vastdata/43.001/qa-automation-engineer/A6.31F)
 - [ ] **VAST Data** — Software Engineer- New college Grad Israel - Haifa Engineering (95%) — [link](https://www.comeet.com/jobs/vastdata/43.001/software-engineer--new-college-grad/81.A34)

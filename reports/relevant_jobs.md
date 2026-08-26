@@ -24,3 +24,7 @@ Check a box on GitHub once you've submitted your application for that job.
 - [ ] **VAST Data** — QA Automation Engineer Israel - Tel Aviv Engineering (95%) — [link](https://www.comeet.com/jobs/vastdata/43.001/qa-automation-engineer/96.619)
 - [ ] **VAST Data** — Linux Kernel Developer RTP, North Carolina Engineering (85%) — [link](https://www.comeet.com/jobs/vastdata/43.001/linux-kernel-developer/70.B26)
 - [ ] **VAST Data** — Top Graduate QA Automation Engineer - Qforce - RTP RTP, North Carolina Engineering (90%) — [link](https://www.comeet.com/jobs/vastdata/43.001/top-graduate-qa-automation-engineer---qforce---rtp/F2.761)
+
+## 2026-08-26
+- [ ] **Nvidia** — Linux Driver Developer JR2024027 Israel, Yokneam (95%) — [link](https://jobs.nvidia.com/careers/job/893397341378)
+- [ ] **SAP** — Cloud Platform Engineer - Student (Java) (85%) — [link](https://jobs.sap.com/job/Ra&apos;anana-Cloud-Platform-Engineer-Student-%28Java%29-4366202/1429741933/)

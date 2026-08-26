@@ -409,6 +409,10 @@ SITES = [
 {"name": "Lightricks", "url": "https://www.lightricks.com/careers/"},
 {"name": "DriveNets", "url": "https://drivenets.com/careers/"},
 {"name": "Fundbox", "url": "https://fundbox.com/careers/"},
+{"name": "BigaBid", "url": "https://www.bigabid.com/careers"},
+{"name": "MyHeritage", "url": "https://job-boards.greenhouse.io/MyHeritage", "engine": "greenhouse_api", "board_token": "MyHeritage"},
+{"name": "Tailor Brands", "url": "https://www.tailorbrands.com/jobs"},
+{"name": "Minute Media", "url": "https://www.comeet.com/jobs/minutemedia/45.00A"},
 ]
 
 # Compatibility keyword sets (English + Hebrew). A candidate job title/snippet

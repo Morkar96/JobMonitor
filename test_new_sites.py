@@ -24,8 +24,9 @@ from playwright.sync_api import sync_playwright
 from config import SITES
 from scraper import fetch_job_candidates
 
-# Sites added in the 2026-08-24 upload -- see config.py history. Update this
-# list (or replace with a different lookup) for the next batch of new sites.
+# Sites added in the 2026-08-24 and 2026-08-26 uploads -- see config.py
+# history. Update this list (or replace with a different lookup) for the
+# next batch of new sites.
 NEW_SITE_NAMES = [
     "Zafran", "Wix", "monday.com", "Fiverr", "Wiz", "Snyk", "Payoneer",
     "Yotpo", "JFrog", "WalkMe", "Armis", "Claroty", "SentinelOne",
@@ -35,6 +36,7 @@ NEW_SITE_NAMES = [
     "HoneyBook", "Verbit", "Personetics", "Redis", "Gett", "Playtika",
     "Moon Active", "Outbrain", "VAST Data", "XM Cyber", "Cyolo",
     "Salt Security", "Lightricks", "DriveNets", "Fundbox",
+    "BigaBid", "MyHeritage", "Tailor Brands", "Minute Media",
 ]
 
 # If a single title accounts for more than this share of all candidates,

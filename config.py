@@ -368,10 +368,8 @@ SITES = [
   {"name": "Zafran", "url": "https://www.zafran.io/careers?ashby_employment_type=FullTime#positions"},
   {"name": "Wix", "url": "https://www.wix.com/jobs/"},
 {"name": "monday.com", "url": "https://monday.com/careers/"},
-{"name": "Fiverr", "url": "https://www.fiverr.com/jobs/"},
 {"name": "Wiz", "url": "https://www.wiz.io/careers"},
 {"name": "Snyk", "url": "https://snyk.io/careers/all-jobs/"},
-{"name": "Payoneer", "url": "https://www.payoneer.com/careers/"},
 {"name": "Yotpo", "url": "https://www.yotpo.com/careers/"},
 {"name": "JFrog", "url": "https://jfrog.com/careers/"},
 {"name": "WalkMe", "url": "https://www.walkme.com/careers/"},
@@ -382,19 +380,24 @@ SITES = [
 {"name": "Kaltura", "url": "https://corp.kaltura.com/careers/"},
 {"name": "Global-e", "url": "https://www.global-e.com/careers/"},
 {"name": "Bringg", "url": "https://www.bringg.com/careers/"},
-{"name": "Deep Instinct", "url": "https://www.deepinstinct.com/careers"},
+{"name": "Deep Instinct", "url": "https://www.deepinstinct.com/careers", "engine": "deep_instinct"},
 {"name": "AI21 Labs", "url": "https://www.ai21.com/careers"},
-{"name": "Axonius", "url": "https://www.axonius.com/careers/"},
-{"name": "Hunters", "url": "https://www.hunters.security/en/careers"},
+{"name": "Axonius", "url": "https://www.axonius.com/company/careers/open-jobs", "engine": "jsonld_jobs"},
+{
+    "name": "Hunters",
+    "url": "https://www.hunters.security/careers",
+    "engine": "comeet_careers_api",
+    "api_url": "https://www.comeet.co/careers-api/2.0/company/67.007/positions?token=7672C6A163533D11D9C429F33D10250333D1",
+},
 {"name": "Torq", "url": "https://torq.io/careers/"},
 {"name": "Pentera", "url": "https://pentera.io/careers/"},
 {"name": "Explorium", "url": "https://www.explorium.ai/careers/"},
-{"name": "DoubleVerify", "url": "https://doubleverify.com/careers/"},
+{"name": "DoubleVerify", "url": "https://job-boards.greenhouse.io/doubleverify", "engine": "greenhouse_api", "board_token": "doubleverify"},
 {"name": "Papaya Global", "url": "https://www.papayaglobal.com/careers/"},
 {"name": "Rapyd", "url": "https://www.rapyd.net/careers/"},
 {"name": "Bizzabo", "url": "https://www.bizzabo.com/careers/"},
 {"name": "Trigo", "url": "https://trigoretail.com/careers/"},
-{"name": "HoneyBook", "url": "https://www.honeybook.com/careers/"},
+{"name": "HoneyBook", "url": "https://www.honeybook.com/company/careers"},
 {"name": "Verbit", "url": "https://verbit.ai/careers/"},
 {"name": "Personetics", "url": "https://personetics.com/careers/"},
 {"name": "Redis", "url": "https://redis.io/careers/"},
@@ -407,8 +410,8 @@ SITES = [
 {"name": "Cyolo", "url": "https://cyolo.io/careers/"},
 {"name": "Salt Security", "url": "https://salt.security/careers/"},
 {"name": "Lightricks", "url": "https://www.lightricks.com/careers/"},
-{"name": "DriveNets", "url": "https://drivenets.com/careers/"},
-{"name": "Fundbox", "url": "https://fundbox.com/careers/"},
+{"name": "DriveNets", "url": "https://drivenets.com/careers/", "engine": "drivenets"},
+{"name": "Fundbox", "url": "https://fundbox.careers.hibob.com/", "engine": "hibob_careers"},
 {"name": "BigaBid", "url": "https://www.bigabid.com/careers"},
 {"name": "MyHeritage", "url": "https://job-boards.greenhouse.io/MyHeritage", "engine": "greenhouse_api", "board_token": "MyHeritage"},
 {"name": "Tailor Brands", "url": "https://www.tailorbrands.com/jobs"},
@@ -507,7 +510,22 @@ KEYWORDS = {
         "dallas", "raleigh", "columbus", "chicago", "boston", "austin",
         "los angeles", "sandy, ut", "vancouver", "toronto", "krakow", "krakw",
         "oslo", "beijing", "buenos aires", "guadalajara", "durham",
-        "phoenix", "sao paulo", "são paulo",
+        "phoenix", "sao paulo", "são paulo", "palo alto", "rtp",
+        "research triangle park",
+        # US state names -- a growing share of scraped sites are global
+        # companies whose US postings just say "City, State" and never
+        # spell out "United States" at all (found via real misses: Rubrik's
+        # "Palo Alto, CA", VAST Data's "RTP, North Carolina" both scored as
+        # compatible). A per-city list can never keep up with every US tech
+        # hub, so cover the states themselves instead.
+        "california", "texas", "massachusetts", "washington",
+        "north carolina", "georgia", "illinois", "colorado", "virginia",
+        "florida", "pennsylvania", "new jersey", "oregon", "arizona",
+        "minnesota", "nevada", "utah",
+        # comma-prefixed state abbreviations ("Austin, TX") -- the comma
+        # guards against matching the word inside unrelated text
+        ", ca", ", tx", ", ma", ", wa", ", nc", ", ga", ", va", ", fl",
+        ", nj", ", az", ", mn", ", nv", ", ut", ", ny", ", pa", ", il",
     ],
     # Backstop disqualifier for non-software engineering disciplines that
     # can still slip past the role_ambiguous + role_software_qualifier gate

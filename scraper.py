@@ -53,6 +53,11 @@ NOISE_WORDS = {
     # "Media Services for Developers").
     "developer hub", "developer center", "developer portal",
     "developer suite", "for developers", "api docs", "api documentation",
+    # A OneTrust/Cookiebot-style consent banner's ad-tech vendor list repeats
+    # this exact phrase once per partner -- seen dominating extraction on
+    # several sites (12/29 candidates on one page) purely because it's
+    # short, descriptive-looking link text with nothing else to filter it.
+    "learn more about this provider",
 }
 
 # Link text/URLs pointing at these domains are never job postings (blog
@@ -237,6 +242,97 @@ def _extract_workday(html: str, base_url: str) -> list[dict]:
     return candidates
 
 
+def _extract_deep_instinct(html: str, base_url: str) -> list[dict]:
+    """Deep Instinct's job cards render the link text as just "SEE DETAILS"
+    -- the actual title (and department) live in a sibling text node within
+    the same container, not the <a> tag itself, so the generic scraper only
+    ever sees identical "SEE DETAILS" links (all collapsing to one
+    boilerplate title, not real per-job text). Pull the whole container's
+    text instead."""
+    soup = BeautifulSoup(html, "lxml")
+    candidates = []
+    seen_urls = set()
+
+    for a in soup.find_all("a", href=True):
+        if a.get_text(strip=True).lower() != "see details":
+            continue
+        full_url = urljoin(base_url, a["href"].strip())
+        if full_url in seen_urls:
+            continue
+        title = a.parent.get_text(" ", strip=True)
+        title = re.sub(r"\s*SEE DETAILS\s*$", "", title, flags=re.IGNORECASE).strip()
+        if not title:
+            continue
+        seen_urls.add(full_url)
+        candidates.append({"title": title, "url": full_url})
+
+    return candidates
+
+
+def _extract_drivenets(html: str, base_url: str) -> list[dict]:
+    """DriveNets' job rows link out via a bare arrow-icon <a> with no text
+    of its own -- the actual title/department/location live two levels up
+    in the row's shared container, not on the link or its immediate parent
+    (which only holds the location)."""
+    soup = BeautifulSoup(html, "lxml")
+    candidates = []
+    seen_urls = set()
+
+    for a in soup.find_all("a", href=lambda h: h and h.startswith("/job/?id=")):
+        full_url = urljoin(base_url, a["href"].strip())
+        if full_url in seen_urls:
+            continue
+        container = a.parent.parent if a.parent and a.parent.parent else a.parent
+        title = container.get_text(" ", strip=True) if container else ""
+        if not title:
+            continue
+        seen_urls.add(full_url)
+        candidates.append({"title": title, "url": full_url})
+
+    return candidates
+
+
+def _extract_jsonld_jobs(html: str, base_url: str) -> list[dict]:
+    """Some career pages embed schema.org JobPosting structured data
+    (<script type="application/ld+json">, either standalone or nested in an
+    @graph list) purely for Google Jobs SEO indexing. Found via Axonius,
+    where the visible job rows are React <button> elements with no href and
+    no attribute JS binds to (no XHR call visible either) -- but this
+    structured data is a clean, complete alternative: title, per-job url
+    (with a real gh_jid / equivalent query param), and location all
+    included, regardless of how the visible DOM renders them."""
+    soup = BeautifulSoup(html, "lxml")
+    candidates = []
+    seen_urls = set()
+
+    for script in soup.find_all("script", type="application/ld+json"):
+        if not script.string:
+            continue
+        try:
+            data = json.loads(script.string)
+        except json.JSONDecodeError:
+            continue
+        items = data.get("@graph", []) if isinstance(data, dict) else data
+        if isinstance(data, dict) and "@graph" not in data:
+            items = [data]
+        for item in items if isinstance(items, list) else []:
+            if not isinstance(item, dict) or item.get("@type") != "JobPosting":
+                continue
+            title = (item.get("title") or "").strip()
+            job_url = item.get("url")
+            if not title or not job_url:
+                continue
+            full_url = urljoin(base_url, job_url)
+            if full_url in seen_urls:
+                continue
+            location = (item.get("jobLocation") or {}).get("name") or ""
+            display_title = f"{title} ({location})" if location else title
+            seen_urls.add(full_url)
+            candidates.append({"title": display_title, "url": full_url})
+
+    return candidates
+
+
 def _fetch_json(url: str, method: str = "GET", body: dict | None = None, timeout: int = 20):
     """Call a JSON API directly -- no browser needed. Used for sites whose
     career page is backed by a plain, unauthenticated JSON endpoint that we
@@ -349,6 +445,30 @@ def _extract_oracle_hcm_api(site: dict) -> list[dict]:
     return candidates
 
 
+def _extract_comeet_careers_api(site: dict) -> list[dict]:
+    """Comeet's newer public Careers API (careers-api/2.0) -- distinct from
+    the older comeet.com/jobs/<company> board pages already handled by the
+    generic scraper. Unlike Shufersal/HiBob's session-gated endpoints, this
+    one is genuinely stateless: company_uid + token are both visible in the
+    page's own network calls, and a plain call works with neither. Schema
+    per Comeet's own API docs (developers.comeet.com) describes a
+    {"positions": [...]} wrapper, but a live call (Hunters' board) returned
+    a bare list instead -- handle both shapes."""
+    payload = _fetch_json(site["api_url"])
+    positions = payload.get("positions", []) if isinstance(payload, dict) else payload
+    candidates = []
+    for pos in positions:
+        title = (pos.get("name") or "").strip()
+        job_url = pos.get("url_active_page") or pos.get("url_comeet_hosted_page")
+        if not title or not job_url:
+            continue
+        loc = pos.get("location") or {}
+        location = ", ".join(b for b in (loc.get("name"), loc.get("country")) if b)
+        display_title = f"{title} ({location})" if location else title
+        candidates.append({"title": display_title, "url": job_url})
+    return candidates
+
+
 def _extract_shufersal(site: dict, browser) -> list[dict]:
     """Shufersal's career page (a Wix site) loads all positions via a POST
     to a Velo backend method (Position.jsw/searchPosition.ajax) rather than
@@ -381,6 +501,37 @@ def _extract_shufersal(site: dict, browser) -> list[dict]:
         # fabricated-looking specific-job link, while still giving each job
         # a unique URL, which storage.py/tracker.py rely on for dedup.
         job_url = f"{site['url']}#position-{order_id}"
+        candidates.append({"title": display_title, "url": job_url})
+    return candidates
+
+
+def _extract_hibob_careers(site: dict, browser) -> list[dict]:
+    """HiBob-hosted career boards (<company>.careers.hibob.com) render each
+    job as an "Apply" button with the real title only in page JS state, not
+    the link text -- the generic scraper gets a real, unique per-job URL but
+    a useless "Apply" title for every single one. The actual data comes from
+    /api/job-ad, which -- like Shufersal's endpoint -- 401s without session
+    context from the page load, so capture it through an already-open page."""
+    page = browser.new_page(user_agent=_UA)
+    try:
+        with page.expect_response(
+            lambda r: "/api/job-ad" in r.url, timeout=25000
+        ) as resp_info:
+            page.goto(site["url"], wait_until="load", timeout=25000)
+        payload = resp_info.value.json()
+    finally:
+        page.close()
+
+    base = site["url"].rstrip("/")
+    candidates = []
+    for job in payload.get("jobAdDetails", []):
+        title = (job.get("title") or "").strip()
+        job_id = job.get("id")
+        if not title or not job_id:
+            continue
+        location = ", ".join(b for b in (job.get("site"), job.get("country")) if b)
+        display_title = f"{title} ({location})" if location else title
+        job_url = f"{base}/jobs/{job_id}/apply"
         candidates.append({"title": display_title, "url": job_url})
     return candidates
 
@@ -438,16 +589,25 @@ def fetch_job_candidates(site: dict, browser) -> list[dict]:
         return _extract_oracle_hcm_api(site)
     if engine == "greenhouse_api":
         return _extract_greenhouse_api(site)
+    if engine == "comeet_careers_api":
+        return _extract_comeet_careers_api(site)
     if engine == "techmap_csv":
         return _extract_techmap_csv(site)
     if engine == "shufersal":
         return _extract_shufersal(site, browser)
+    if engine == "hibob_careers":
+        return _extract_hibob_careers(site, browser)
 
-    extract = (
-        (lambda h: _extract_workday(h, site["url"]))
-        if engine == "workday"
-        else (lambda h: _extract_generic(h, site["url"]))
-    )
+    if engine == "workday":
+        extract = lambda h: _extract_workday(h, site["url"])
+    elif engine == "deep_instinct":
+        extract = lambda h: _extract_deep_instinct(h, site["url"])
+    elif engine == "drivenets":
+        extract = lambda h: _extract_drivenets(h, site["url"])
+    elif engine == "jsonld_jobs":
+        extract = lambda h: _extract_jsonld_jobs(h, site["url"])
+    else:
+        extract = lambda h: _extract_generic(h, site["url"])
 
     html = _render_page(site["url"], browser, wait_selector=site.get("wait_selector"))
     candidates = extract(html)

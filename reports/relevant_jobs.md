@@ -11,9 +11,6 @@ Check a box on GitHub once you've submitted your application for that job.
 
 - [ ] **CathWorks** — Software QA Automation Engineer (100%) — [link](https://cathworks.bamboohr.com/careers/84)
 
-## 2026-08-20
-- [ ] **Rubrik** — Software Engineer, Atlas Distributed Systems - Palo Alto, CA (85%) — [link](https://www.rubrik.com/company/careers/departments/job.8122613?gh_jid=8122613)
-
 ## 2026-08-22
 - [ ] **Nvidia** — Software Engineer, SONiC JR2023435 Israel, Raanana + 1 more (100%) — [link](https://jobs.nvidia.com/careers/job/893397238221)
 
@@ -22,8 +19,6 @@ Check a box on GitHub once you've submitted your application for that job.
 - [ ] **VAST Data** — QA Automation Engineer Israel - Haifa Engineering (95%) — [link](https://www.comeet.com/jobs/vastdata/43.001/qa-automation-engineer/A6.31F)
 - [ ] **VAST Data** — Software Engineer- New college Grad Israel - Haifa Engineering (95%) — [link](https://www.comeet.com/jobs/vastdata/43.001/software-engineer--new-college-grad/81.A34)
 - [ ] **VAST Data** — QA Automation Engineer Israel - Tel Aviv Engineering (95%) — [link](https://www.comeet.com/jobs/vastdata/43.001/qa-automation-engineer/96.619)
-- [ ] **VAST Data** — Linux Kernel Developer RTP, North Carolina Engineering (85%) — [link](https://www.comeet.com/jobs/vastdata/43.001/linux-kernel-developer/70.B26)
-- [ ] **VAST Data** — Top Graduate QA Automation Engineer - Qforce - RTP RTP, North Carolina Engineering (90%) — [link](https://www.comeet.com/jobs/vastdata/43.001/top-graduate-qa-automation-engineer---qforce---rtp/F2.761)
 
 ## 2026-08-26
 - [ ] **Nvidia** — Linux Driver Developer JR2024027 Israel, Yokneam (95%) — [link](https://jobs.nvidia.com/careers/job/893397341378)

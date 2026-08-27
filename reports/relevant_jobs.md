@@ -23,3 +23,6 @@ Check a box on GitHub once you've submitted your application for that job.
 ## 2026-08-26
 - [ ] **Nvidia** — Linux Driver Developer JR2024027 Israel, Yokneam (95%) — [link](https://jobs.nvidia.com/careers/job/893397341378)
 - [ ] **SAP** — Cloud Platform Engineer - Student (Java) (85%) — [link](https://jobs.sap.com/job/Ra&apos;anana-Cloud-Platform-Engineer-Student-%28Java%29-4366202/1429741933/)
+
+## 2026-08-27
+- [ ] **Nvidia** — Design Automation Engineer JR2022951 Israel, Yokneam (95%) — [link](https://jobs.nvidia.com/careers/job/893397075751)

@@ -26,3 +26,6 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-08-27
 - [ ] **Nvidia** — Design Automation Engineer JR2022951 Israel, Yokneam (95%) — [link](https://jobs.nvidia.com/careers/job/893397075751)
+
+## 2026-09-01
+- [ ] **Aidoc** — AI Software Engineer Tel Aviv-Yafo, Tel Aviv District, Israel (95%) — [link](https://www.aidoc.com/about/careers/ai-software-engineer)

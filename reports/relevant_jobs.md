@@ -29,3 +29,6 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-09-01
 - [ ] **Aidoc** — AI Software Engineer Tel Aviv-Yafo, Tel Aviv District, Israel (95%) — [link](https://www.aidoc.com/about/careers/ai-software-engineer)
+
+## 2026-09-02
+- [ ] **WorldQuant** — AI Software Engineer (רמת גן) (95%) — [link](https://il.linkedin.com/jobs/view/ai-software-engineer-at-worldquant-4461755995?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)

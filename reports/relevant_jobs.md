@@ -32,3 +32,9 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-09-02
 - [ ] **WorldQuant** — AI Software Engineer (רמת גן) (95%) — [link](https://il.linkedin.com/jobs/view/ai-software-engineer-at-worldquant-4461755995?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
+
+## 2026-09-03
+- [ ] **HiBob** — Junior Field Deployment Engineer (FDE) Permanent | Israel (100%) — [link](https://hibob-fa0ad69d0cb34a.careers.hibob.com/jobs/6bd1bf4e-5e20-40e5-a2af-c0bf4f39a7f9)
+- [ ] **Nvidia** — Software Performance Engineer JR2024413 Israel, Yokneam (95%) — [link](https://jobs.nvidia.com/careers/job/893397548023)
+- [ ] **Nvidia** — Advanced Software Development Engineer JR2020678 Israel, Yokneam (95%) — [link](https://jobs.nvidia.com/careers/job/893396409041)
+- [ ] **AppsFlyer** — Mobile SDK Engineer Herzliya Apply (95%) — [link](https://boards.greenhouse.io/embed/job_app?for=appsflyer&token=8781235002)

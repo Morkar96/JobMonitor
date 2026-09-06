@@ -40,5 +40,5 @@ Check a box on GitHub once you've submitted your application for that job.
 - [ ] **AppsFlyer** — Mobile SDK Engineer Herzliya Apply (95%) — [link](https://boards.greenhouse.io/embed/job_app?for=appsflyer&token=8781235002)
 
 ## 2026-09-06
-- [ ] **HiBob** — Junior Field Deployment Engineer (FDE) (תל אביב-יפו) (100%) — [link](https://il.linkedin.com/jobs/view/junior-field-deployment-engineer-fde-at-hibob-4462458214?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
-- [ ] **Nvidia** — Software Engineer – Networking Platforms, Diagnostics Tools and Performance JR2025162 Israel, Tel Aviv + 1 more (95%) — [link](https://jobs.nvidia.com/careers/job/893397561032)
+- [x] **HiBob** — Junior Field Deployment Engineer (FDE) (תל אביב-יפו) (100%) — [link](https://il.linkedin.com/jobs/view/junior-field-deployment-engineer-fde-at-hibob-4462458214?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
+- [x] **Nvidia** — Software Engineer – Networking Platforms, Diagnostics Tools and Performance JR2025162 Israel, Tel Aviv + 1 more (95%) — [link](https://jobs.nvidia.com/careers/job/893397561032)

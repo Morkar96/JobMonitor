@@ -42,3 +42,8 @@ Check a box on GitHub once you've submitted your application for that job.
 ## 2026-09-06
 - [x] **HiBob** — Junior Field Deployment Engineer (FDE) (תל אביב-יפו) (100%) — [link](https://il.linkedin.com/jobs/view/junior-field-deployment-engineer-fde-at-hibob-4462458214?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
 - [x] **Nvidia** — Software Engineer – Networking Platforms, Diagnostics Tools and Performance JR2025162 Israel, Tel Aviv + 1 more (95%) — [link](https://jobs.nvidia.com/careers/job/893397561032)
+
+## 2026-09-08
+- [ ] **Nvidia** — DevOps Engineer, DOCA JR2023758 Israel, Yokneam + 1 more (95%) — [link](https://jobs.nvidia.com/careers/job/893397606507)
+- [ ] **Nvidia** — Software Engineer, DOCA Networking JR2024811 Palestine, Rawabi (85%) — [link](https://jobs.nvidia.com/careers/job/893397606510)
+- [ ] **Verint** — DevOps Engineer - Herzliya, Israel (95%) — [link](https://fa-epcb-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/4207)

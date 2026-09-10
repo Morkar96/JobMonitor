@@ -47,3 +47,9 @@ Check a box on GitHub once you've submitted your application for that job.
 - [ ] **Nvidia** — DevOps Engineer, DOCA JR2023758 Israel, Yokneam + 1 more (95%) — [link](https://jobs.nvidia.com/careers/job/893397606507)
 - [ ] **Nvidia** — Software Engineer, DOCA Networking JR2024811 Palestine, Rawabi (85%) — [link](https://jobs.nvidia.com/careers/job/893397606510)
 - [ ] **Verint** — DevOps Engineer - Herzliya, Israel (95%) — [link](https://fa-epcb-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/4207)
+
+## 2026-09-10
+- [ ] **NetSpark** — Junior Software Engineer (גבעת שמואל) (100%) — [link](https://il.linkedin.com/jobs/view/junior-software-engineer-at-netspark-4465033034?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
+- [ ] **Apple Israel** — Embedded Platform Engineer (95%) — [link](https://jobs.apple.com/en-il/details/200672340-0865/embedded-platform-engineer?team=SFTWR)
+- [ ] **Tailor Brands** — Data Engineer https://www.tailorbrands.com/careers (85%) — [link](https://www.tailorbrands.com/?page_id=183384/co/https-www-tailorbrands-com-careers/B9.E67/data-engineer/all)
+- [ ] **Tailor Brands** — Full Stack Engineer https://www.tailorbrands.com/careers · Full-time · Intermediate (85%) — [link](https://www.tailorbrands.com/?page_id=183384/co/https-www-tailorbrands-com-careers/E6.D61/full-stack-engineer/all)

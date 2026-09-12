@@ -53,3 +53,6 @@ Check a box on GitHub once you've submitted your application for that job.
 - [ ] **Apple Israel** — Embedded Platform Engineer (95%) — [link](https://jobs.apple.com/en-il/details/200672340-0865/embedded-platform-engineer?team=SFTWR)
 - [ ] **Tailor Brands** — Data Engineer https://www.tailorbrands.com/careers (85%) — [link](https://www.tailorbrands.com/?page_id=183384/co/https-www-tailorbrands-com-careers/B9.E67/data-engineer/all)
 - [ ] **Tailor Brands** — Full Stack Engineer https://www.tailorbrands.com/careers · Full-time · Intermediate (85%) — [link](https://www.tailorbrands.com/?page_id=183384/co/https-www-tailorbrands-com-careers/E6.D61/full-stack-engineer/all)
+
+## 2026-09-12
+- [ ] **Nvidia** — DevOps and Automation Engineer – ICPE JR2025436 Israel, Yokneam (85%) — [link](https://jobs.nvidia.com/careers/job/893397662276)

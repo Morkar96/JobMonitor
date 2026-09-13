@@ -56,3 +56,6 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-09-12
 - [ ] **Nvidia** — DevOps and Automation Engineer – ICPE JR2025436 Israel, Yokneam (85%) — [link](https://jobs.nvidia.com/careers/job/893397662276)
+
+## 2026-09-13
+- [ ] **Glassix Solutions** — Junior Fullstack Developer (תל אביב-יפו) (100%) — [link](https://il.linkedin.com/jobs/view/junior-fullstack-developer-at-glassix-4466323118?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)

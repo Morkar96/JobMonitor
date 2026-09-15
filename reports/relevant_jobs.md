@@ -63,3 +63,7 @@ Check a box on GitHub once you've submitted your application for that job.
 ## 2026-09-14
 - [x] **SolarEdge Technologies** — C# Software Developer (הרצליה) (100%) — [link](https://www.comeet.com/jobs/SolarEdge/71.00A/c-software-developer/25.272?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
 - [ ] **DriveNets** — IT DevOps Engineer IT Tel Aviv, Tel Aviv, Israel (95%) — [link](https://drivenets.com/job/?id=2B.271)
+
+## 2026-09-15
+- [ ] **INFINIDAT** — Software Developer (הרצליה) (100%) — [link](https://il.linkedin.com/jobs/view/software-developer-at-infinidat-4464785507?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
+- [ ] **Nvidia** — SONiC Software Engineer - Python JR2017236 Israel, Raanana (95%) — [link](https://jobs.nvidia.com/careers/job/893395089636)

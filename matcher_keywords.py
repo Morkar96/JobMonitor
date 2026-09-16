@@ -1,8 +1,9 @@
 """
 Keyword-based fallback matcher, used by matcher.py whenever the LLM matcher
 (matcher_llm.py) isn't available. Scores a candidate job posting against the
-desired profile (junior software developer, center of Israel) using simple
-substring keyword matching across three categories: role, level, location.
+desired profile (any junior technical role -- development, QA, or IT --
+center of Israel) using simple substring keyword matching across three
+categories: role, level, location.
 
 "role" itself has two tiers: unambiguous words (developer, programmer,
 backend, ...) score directly, while ambiguous words ("engineer", Hebrew

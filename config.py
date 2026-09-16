@@ -429,6 +429,22 @@ KEYWORDS = {
         "fullstack", "full-stack", "backend", "back-end", "coder",
         "מתכנת", "מתכנת/ת", "מתכנתת",
         "תוכניתן", "תוכניתן/ית", "תוכניתנית", "הנדסת תוכנה", "פיתוח תוכנה",
+        # QA/testing -- profile broadened beyond pure development to any
+        # hands-on technical role.
+        "qa", "quality assurance", "quality engineer", "qa automation",
+        "test automation", "sdet", "software tester", "manual qa",
+        "qa analyst", "בדיקות תוכנה", "בודק תוכנה", "בודקת תוכנה",
+        "בודק/ת תוכנה", "אבטחת איכות",
+        # IT -- support/infrastructure/sysadmin roles. Deliberately no bare
+        # "it" keyword (would substring-match inside "with", "position",
+        # etc.) -- only multi-word phrases specific enough to avoid that.
+        "it support", "it specialist", "it technician", "it administrator",
+        "it engineer", "systems administrator", "system administrator",
+        "sysadmin", "network administrator", "network engineer",
+        "help desk", "service desk", "desktop support", "it infrastructure",
+        "information technology", "תמיכה טכנית", "אדמיניסטרטור מערכות",
+        "אדמיניסטרטורית מערכות", "מנהל רשת", "מנהלת רשת", "טכנאי מחשבים",
+        "טכנאית מחשבים",
     ],
     # "engineer" and Hebrew "מפתח"/"מהנדס" (developer/engineer) are used just
     # as often for hardware/mechanical/electrical/systems roles as for
@@ -536,7 +552,7 @@ KEYWORDS = {
         "hardware engineer", "electronics engineer", "electrical engineer",
         "mechanical engineer", "chemical engineer", "process engineer",
         "process development", "manufacturing engineer", "production integration",
-        "quality engineer", "optical engineer", "thermal engineer",
+        "optical engineer", "thermal engineer",
         "structural engineer", "propulsion", "avionics", "magnetic engineer",
         "rf engineer", "analog design", "chip design", "asic design",
         "mems", "device physics", "civil engineer", "industrial engineer",

@@ -75,15 +75,18 @@ RESPONSE_SCHEMA = {
 }
 
 PROMPT_TEMPLATE = """You are screening ONE job posting for a candidate with
-this profile: a junior backend Python developer (~1 year of professional
+this profile: a junior technical professional (~1 year of professional
 experience as a "Junior Software Developer", so 0-2 years overall) based in
 central Israel (Gush Dan area: Tel Aviv, Ramat Gan, Herzliya, Petah Tikva,
 Bnei Brak, Givatayim, Rishon LeZion, etc). Hands-on experience: AWS (Lambda,
 S3, ECS, CloudWatch, Secrets Manager), Docker, RabbitMQ, microservices
 architecture, and building/maintaining backend APIs. Also has full-stack
-training (JavaScript/TypeScript, React, Node.js) but is specifically
-targeting Backend or Automation Developer roles, not frontend-focused ones.
-Postings may be in English or Hebrew.
+training (JavaScript/TypeScript, React, Node.js). Backend/Python/automation
+development is the strongest fit, but the candidate is deliberately casting
+a wide net across any hands-on technical role -- development (backend,
+frontend, full stack), QA (manual or automation), IT (support, sysadmin,
+infrastructure, helpdesk), DevOps, or similar -- not narrowly limited to
+software development. Postings may be in English or Hebrew.
 
 Job posting title/text:
 \"\"\"{title}\"\"\"
@@ -103,16 +106,17 @@ so -- never guess a conflict from silence.
   overview page that isn't a single requisition -- even if it's full of
   role-sounding words like "engineer" or "developer". If false, none of
   the other answers matter (there's no role to evaluate).
-- role_match: Is this a software development / programming role this
-  candidate would actually want to apply to? Backend, Python, automation,
-  DevOps-adjacent, or cloud/infrastructure developer roles are the strongest
-  fit given their background -- treat those as a clear yes. General/full
-  stack software developer roles are also a yes (their training covers
-  that). A role that's purely frontend-focused (no backend component at
-  all) is a weaker fit but still counts as role_match, since it's still
-  hands-on coding -- just note that in reasoning. Answer false for
-  non-coding roles (pure QA/support/sales/hardware/ops) unless clearly
-  hands-on coding.
+- role_match: Is this a hands-on technical role this candidate would
+  actually want to apply to? This is intentionally broad -- treat all of
+  the following as a clear yes: software development (backend, frontend,
+  full stack, any language/stack), QA/testing (manual or automation, SDET),
+  IT (support, sysadmin, helpdesk, infrastructure, network), and DevOps.
+  Backend/Python/automation/cloud roles are the strongest fit given their
+  background, but don't downgrade QA or IT roles just because they're a
+  weaker personal fit -- they still count as a full yes. Answer false only
+  for roles with no hands-on technical component at all -- sales, pure
+  marketing, HR, finance, hardware/mechanical/electrical engineering, or
+  executive/management roles.
 - level_match: Is this appropriate for someone with 0-2 years of experience
   (junior, entry-level, new grad, no explicit senior requirement)?
 - level_explicitly_senior: Does the text explicitly require a senior/mid-level

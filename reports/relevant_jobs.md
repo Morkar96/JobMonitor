@@ -67,3 +67,7 @@ Check a box on GitHub once you've submitted your application for that job.
 ## 2026-09-15
 - [ ] **INFINIDAT** — Software Developer (הרצליה) (100%) — [link](https://il.linkedin.com/jobs/view/software-developer-at-infinidat-4464785507?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
 - [ ] **Nvidia** — SONiC Software Engineer - Python JR2017236 Israel, Raanana (95%) — [link](https://jobs.nvidia.com/careers/job/893395089636)
+
+## 2026-09-17
+- [ ] **Redwood International Sports** — Full Stack Engineer (פתח תקווה) (95%) — [link](https://il.linkedin.com/jobs/view/full-stack-engineer-at-redwood-international-sports-%E2%9A%BD%EF%B8%8F-4468358703?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
+- [ ] **Nvidia** — Software Design Engineer - SONiC Group JR2005323 Israel, Raanana (95%) — [link](https://jobs.nvidia.com/careers/job/893391708161)

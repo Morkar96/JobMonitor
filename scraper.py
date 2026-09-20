@@ -79,26 +79,38 @@ def _render_page(url: str, browser, wait_selector: str | None = None, timeout_ms
     """Load a URL in headless Chromium and return the fully rendered HTML.
     Takes an already-open Playwright `browser` rather than launching its
     own -- callers share one browser for the whole run (see main.py) so we
-    don't pay Chromium's ~1-2s launch cost on every single site/page."""
-    page = browser.new_page(user_agent=_UA)
-    try:
-        page.goto(url, wait_until="networkidle", timeout=timeout_ms)
-    except PWTimeout:
-        # Some sites never go fully idle (polling/analytics). Fall back
-        # to whatever loaded so far.
-        pass
+    don't pay Chromium's ~1-2s launch cost on every single site/page.
 
-    if wait_selector:
+    Retries once on a transient navigation-level error (seen in practice
+    only in CI, never locally: net::ERR_HTTP2_PROTOCOL_ERROR on one site,
+    "page is navigating and changing the content" on another when
+    page.content() races a client-side redirect) -- a single network blip
+    shouldn't cost the whole site for the day when a fresh attempt would
+    likely succeed."""
+    for attempt in range(2):
+        page = browser.new_page(user_agent=_UA)
         try:
-            page.wait_for_selector(wait_selector, timeout=timeout_ms)
-        except PWTimeout:
-            pass
+            try:
+                page.goto(url, wait_until="networkidle", timeout=timeout_ms)
+            except PWTimeout:
+                # Some sites never go fully idle (polling/analytics). Fall
+                # back to whatever loaded so far.
+                pass
 
-    # small extra pause for lazy-loaded lists
-    time.sleep(1.5)
-    html = page.content()
-    page.close()
-    return html
+            if wait_selector:
+                try:
+                    page.wait_for_selector(wait_selector, timeout=timeout_ms)
+                except PWTimeout:
+                    pass
+
+            # small extra pause for lazy-loaded lists
+            time.sleep(1.5)
+            return page.content()
+        except Exception:
+            if attempt == 1:
+                raise
+        finally:
+            page.close()
 
 
 def _dedupe_repeated_text(text: str, min_chunk_len: int = 20) -> str:
@@ -476,16 +488,30 @@ def _extract_shufersal(site: dict, browser) -> list[dict]:
     (nav links, footer), never an actual job. The endpoint also 401s when
     called directly (needs session context from the page load), so capture
     its response through an already-open page instead of hitting it as a
-    standalone API."""
-    page = browser.new_page(user_agent=_UA)
-    try:
-        with page.expect_response(
-            lambda r: "searchPosition" in r.url, timeout=25000
-        ) as resp_info:
-            page.goto(site["url"], wait_until="load", timeout=25000)
-        payload = resp_info.value.json()
-    finally:
-        page.close()
+    standalone API.
+
+    In production this has timed out at 25s on every single scheduled run
+    (worked fine locally, so it's CI-specific -- likely just a slower
+    network path to a heavy Wix page rather than a hard block, since it's
+    not a permanent 100% failure category like a Cloudflare challenge).
+    Retry once with a longer timeout before giving up."""
+    payload = None
+    for timeout_ms in (25000, 50000):
+        page = browser.new_page(user_agent=_UA)
+        try:
+            with page.expect_response(
+                lambda r: "searchPosition" in r.url, timeout=timeout_ms
+            ) as resp_info:
+                page.goto(site["url"], wait_until="load", timeout=timeout_ms)
+            payload = resp_info.value.json()
+        except PWTimeout:
+            continue
+        finally:
+            page.close()
+        if payload is not None:
+            break
+    if payload is None:
+        return []
 
     candidates = []
     for job in payload.get("result", []):

@@ -416,6 +416,16 @@ SITES = [
 {"name": "MyHeritage", "url": "https://job-boards.greenhouse.io/MyHeritage", "engine": "greenhouse_api", "board_token": "MyHeritage"},
 {"name": "Tailor Brands", "url": "https://www.tailorbrands.com/jobs"},
 {"name": "Minute Media", "url": "https://www.comeet.com/jobs/minutemedia/45.00A"},
+{"name": "3sellers", "url": "https://www.3dsellers.com/careers"},
+{"name": "Reevol", "url": "https://www.reevol.com/about"},
+{"name": "evoke", "url": "https://www.evokeplc.com/careers/"},
+{"name": "1touch", "url": "https://www.1touch.io/company/careers"},
+{"name": "8fig", "url": "https://www.8fig.co/jobs/"},
+{"name": "circles", "url": "https://circlesup.com/careers/"},
+{"name": "365scores", "url": "https://corporate.365scores.com/careers/"},
+{"name": "7ai", "url": "https://7ai.com/careers"},
+{"name": "Harmony", "url": "https://jobs.ashbyhq.com/harmony"},
+{"name": "Minute", "url": "https://www.minutegroup.com/company/careers"},
 ]
 
 # Compatibility keyword sets (English + Hebrew). A candidate job title/snippet

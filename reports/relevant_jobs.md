@@ -74,3 +74,6 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-09-19
 - [ ] **Nvidia** — Developer Technology Engineer - Simulation JR2020295 Korea, Seoul (85%) — [link](https://jobs.nvidia.com/careers/job/893395999538)
+
+## 2026-09-22
+- [ ] **Cyolo** — Junior DevOps Engineer Israel R&D See Details (100%) — [link](https://cyolo.io/open-positions/84.274)

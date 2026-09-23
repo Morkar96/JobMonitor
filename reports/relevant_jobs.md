@@ -77,3 +77,7 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-09-22
 - [ ] **Cyolo** — Junior DevOps Engineer Israel R&D See Details (100%) — [link](https://cyolo.io/open-positions/84.274)
+
+## 2026-09-23
+- [ ] **VAST Data** — QA Performance Engineer Israel - Haifa Engineering (95%) — [link](https://www.comeet.com/jobs/vastdata/43.001/qa-performance-engineer/99.A1F-17.10C)
+- [ ] **VAST Data** — QA Performance Engineer Israel - Tel Aviv Engineering (95%) — [link](https://www.comeet.com/jobs/vastdata/43.001/qa-performance-engineer/99.A1F)

@@ -371,7 +371,7 @@ SITES = [
 {"name": "Wiz", "url": "https://www.wiz.io/careers"},
 {"name": "Snyk", "url": "https://snyk.io/careers/all-jobs/"},
 {"name": "Yotpo", "url": "https://www.yotpo.com/careers/"},
-{"name": "JFrog", "url": "https://jfrog.com/careers/"},
+{"name": "JFrog", "url": "https://jfrog.com/careers/", "engine": "greenhouse_api", "board_token": "jfrog"},
 {"name": "WalkMe", "url": "https://www.walkme.com/careers/"},
 {"name": "Armis", "url": "https://www.armis.com/careers/"},
 {"name": "Claroty", "url": "https://claroty.com/careers/"},
@@ -412,7 +412,6 @@ SITES = [
 {"name": "Lightricks", "url": "https://www.lightricks.com/careers/"},
 {"name": "DriveNets", "url": "https://drivenets.com/careers/", "engine": "drivenets"},
 {"name": "Fundbox", "url": "https://fundbox.careers.hibob.com/", "engine": "hibob_careers"},
-{"name": "BigaBid", "url": "https://www.bigabid.com/careers"},
 {"name": "MyHeritage", "url": "https://job-boards.greenhouse.io/MyHeritage", "engine": "greenhouse_api", "board_token": "MyHeritage"},
 {"name": "Tailor Brands", "url": "https://www.tailorbrands.com/jobs"},
 {"name": "Minute Media", "url": "https://www.comeet.com/jobs/minutemedia/45.00A"},
@@ -506,9 +505,25 @@ KEYWORDS = {
         "israel", "tel aviv", "gush dan", "central israel", "center district",
         "ramat gan", "herzliya", "petah tikva", "petach tikva", "raanana",
         "ra'anana", "kfar saba", "givatayim", "bnei brak", "rishon lezion",
-        "rishon le zion",
+        "rishon le zion", "remote",
         "ישראל", "תל אביב", "גוש דן", "מרכז", "רמת גן", "הרצליה", "פתח תקווה",
         "גבעתיים", "בני ברק", "ראשון לציון", "רעננה", "כפר סבא",
+        "מרחוק", "עבודה מהבית",
+    ],
+    # Specific-enough signals to override location_non_center_israel below --
+    # unlike the bare "israel"/"מרכז" in the general location list above
+    # (which says "this company is in Israel" but not where), these actually
+    # place the role in the center or explicitly off-site, so they're trusted
+    # to clear a periphery-city mention in the same posting (e.g. a national
+    # company listing "Tel Aviv, Haifa, Beer Sheva" for the same requisition).
+    "location_center_specific": [
+        "tel aviv", "gush dan", "central israel", "center district",
+        "ramat gan", "herzliya", "petah tikva", "petach tikva", "raanana",
+        "ra'anana", "kfar saba", "givatayim", "bnei brak", "rishon lezion",
+        "rishon le zion", "remote",
+        "תל אביב", "גוש דן", "מרכז", "רמת גן", "הרצליה", "פתח תקווה",
+        "גבעתיים", "בני ברק", "ראשון לציון", "רעננה", "כפר סבא",
+        "מרחוק", "עבודה מהבית",
     ],
     # Explicit signal that a posting is located somewhere other than Israel.
     # Not exhaustive -- just the countries/hubs global job boards actually
@@ -524,11 +539,12 @@ KEYWORDS = {
         "romania", "bulgaria", "greece", "cyprus", "estonia", "latvia",
         "lithuania", "ukraine", "russia", "turkey", "uae",
         "united arab emirates", "saudi arabia", "egypt", "south africa",
-        "india", "china", "japan", "south korea", "taiwan", "singapore",
+        "india", "china", "japan", "korea", "taiwan", "singapore",
         "malaysia", "indonesia", "philippines", "thailand", "vietnam",
         "australia", "new zealand", "norway",
+        "palestine", "west bank", "gaza", "ramallah", "rawabi",
         # foreign cities that show up without an accompanying country name
-        "taipei", "hsinchu", "shanghai", "shenzhen", "bengaluru",
+        "taipei", "hsinchu", "shanghai", "shenzhen", "bengaluru", "seoul",
         "bangalore", "pune", "gurugram", "gurgaon", "hyderabad", "manila",
         "alkmaar", "berlin", "düsseldorf", "dusseldorf", "london",
         "southampton", "sydney", "ostrava", "prague", "limassol", "lisbon",
@@ -552,6 +568,24 @@ KEYWORDS = {
         # guards against matching the word inside unrelated text
         ", ca", ", tx", ", ma", ", wa", ", nc", ", ga", ", va", ", fl",
         ", nj", ", az", ", mn", ", nv", ", ut", ", ny", ", pa", ", il",
+    ],
+    # Explicit signal that a posting is in Israel but NOT the center/Gush Dan
+    # area (or remote) the candidate wants -- a real commute-distance
+    # disqualifier, same treatment as location_foreign: only fires when no
+    # location_center_specific keyword is also present in the same posting.
+    "location_non_center_israel": [
+        "haifa", "krayot", "kiryat ata", "kiryat bialik", "kiryat yam",
+        "kiryat motzkin", "nesher", "acre", "akko", "nahariya", "karmiel",
+        "tiberias", "afula", "nazareth", "migdal haemek", "yokneam",
+        "zichron yaakov", "beer sheva", "beersheba", "be'er sheva", "eilat",
+        "dimona", "sderot", "kiryat gat", "ashdod", "ashkelon", "jerusalem",
+        "beit shemesh", "kiryat shmona", "safed", "tzfat", "northern israel",
+        "southern israel", "north district", "south district",
+        "חיפה", "קריות", "קריית אתא", "קריית ביאליק", "קריית ים",
+        "קריית מוצקין", "נשר", "עכו", "נהריה", "כרמיאל", "טבריה", "עפולה",
+        "נצרת", "מגדל העמק", "יקנעם", "זכרון יעקב", "באר שבע", "אילת",
+        "דימונה", "שדרות", "קריית גת", "אשדוד", "אשקלון", "ירושלים",
+        "בית שמש", "קריית שמונה", "צפת",
     ],
     # Backstop disqualifier for non-software engineering disciplines that
     # can still slip past the role_ambiguous + role_software_qualifier gate

@@ -1,6 +1,6 @@
 """
-Keyword-based fallback matcher, used by matcher.py whenever the LLM matcher
-(matcher_llm.py) isn't available. Scores a candidate job posting against the
+Keyword-based matcher used for every job, both stages of the pipeline
+(see main.py) -- no LLM involved. Scores a candidate job posting against the
 desired profile (any junior technical role -- development, QA, or IT --
 center of Israel) using simple substring keyword matching across three
 categories: role, level, location.
@@ -22,9 +22,15 @@ is an outright disqualifier ("foreign_conflict") -- missing location info
 is treated as "unknown, don't penalize", but an explicit foreign location
 is a real conflict, not just an absence of a positive signal.
 
+The candidate only wants center-Israel or remote roles, so the same
+treatment applies to a posting that names a non-center Israeli city (Haifa,
+Beer Sheva, Jerusalem, etc.) without also naming a center/remote location
+("periphery_conflict") -- a real commute-distance disqualifier, not just an
+absence of a positive signal.
+
 Score = sum of weights for matched categories (0-100).
 A job is "compatible" if score >= COMPATIBILITY_THRESHOLD and there's no
-senior_conflict or foreign_conflict.
+senior_conflict, foreign_conflict, or periphery_conflict.
 """
 
 from config import KEYWORDS, WEIGHTS, COMPATIBILITY_THRESHOLD
@@ -74,6 +80,16 @@ def score_job_keywords(title: str, extra_text: str = "") -> dict:
         "location" not in matched and _matches(combined, KEYWORDS["location_foreign"])
     )
 
+    # Israel but not center/remote (Haifa, Beer Sheva, Jerusalem, ...) -- only
+    # a disqualifier when no center-specific/remote keyword is also mentioned.
+    # Deliberately gated on location_center_specific rather than "location" in
+    # matched: a bare "israel"/"מרכז" mention doesn't say WHICH city, so it
+    # shouldn't be enough to clear an explicit periphery-city mention.
+    periphery_conflict = (
+        not _matches(combined, KEYWORDS["location_center_specific"])
+        and _matches(combined, KEYWORDS["location_non_center_israel"])
+    )
+
     # bare "engineer" in the role list also matches non-software engineering
     # disciplines (hardware/mechanical/electrical/...) -- a real disqualifier
     non_software_conflict = _matches(combined, KEYWORDS["role_non_software"])
@@ -82,6 +98,7 @@ def score_job_keywords(title: str, extra_text: str = "") -> dict:
         score >= COMPATIBILITY_THRESHOLD
         and not senior_conflict
         and not foreign_conflict
+        and not periphery_conflict
         and not non_software_conflict
     )
 
@@ -91,8 +108,6 @@ def score_job_keywords(title: str, extra_text: str = "") -> dict:
         "matched": matched,
         "senior_conflict": senior_conflict,
         "foreign_conflict": foreign_conflict,
+        "periphery_conflict": periphery_conflict,
         "non_software_conflict": non_software_conflict,
-        # keyword matching has no way to tell a blog post from a real
-        # posting -- only the LLM path (matcher_llm.py) can set this True.
-        "non_job_content": False,
     }

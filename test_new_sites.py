@@ -36,7 +36,7 @@ NEW_SITE_NAMES = [
     "HoneyBook", "Verbit", "Personetics", "Redis", "Gett", "Playtika",
     "Moon Active", "Outbrain", "VAST Data", "XM Cyber", "Cyolo",
     "Salt Security", "Lightricks", "DriveNets", "Fundbox",
-    "BigaBid", "MyHeritage", "Tailor Brands", "Minute Media",
+    "MyHeritage", "Tailor Brands", "Minute Media",
 ]
 
 # If a single title accounts for more than this share of all candidates,
@@ -45,11 +45,14 @@ NEW_SITE_NAMES = [
 # distinct job postings.
 MAX_REPEATED_TITLE_RATIO = 0.3
 
-# Sites verified to be correctly wired to a real, working data source that
-# just happens to have zero open positions right now (confirmed by calling
-# the underlying API directly, not just an empty scrape) -- 0 candidates
-# here means "no jobs today", not "the scraper is broken".
-KNOWN_CURRENTLY_EMPTY = {"Hunters"}
+# Sites where 0 candidates is expected and NOT a scraper bug -- either
+# verified correctly wired to a real data source that just has no open
+# positions right now (Hunters, DoubleVerify -- confirmed by calling the
+# underlying API/page directly), or a site-side defect outside our control
+# (DriveNets -- their "Open Positions" button links to a page anchor that
+# doesn't exist anywhere in their own HTML; nothing to fix on our end,
+# and this will start passing again on its own once they fix their site).
+KNOWN_CURRENTLY_EMPTY = {"Hunters", "DoubleVerify", "DriveNets"}
 
 
 def _new_sites():

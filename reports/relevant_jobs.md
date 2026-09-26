@@ -15,17 +15,10 @@ Check a box on GitHub once you've submitted your application for that job.
 - [ ] **Nvidia** — Software Engineer, SONiC JR2023435 Israel, Raanana + 1 more (100%) — [link](https://jobs.nvidia.com/careers/job/893397238221)
 
 ## 2026-08-24
-- [ ] **VAST Data** — Graduate QA Automation Engineer Israel - Haifa Engineering (100%) — [link](https://www.comeet.com/jobs/vastdata/43.001/graduate-qa-automation-engineer/8F.946)
-- [ ] **VAST Data** — QA Automation Engineer Israel - Haifa Engineering (95%) — [link](https://www.comeet.com/jobs/vastdata/43.001/qa-automation-engineer/A6.31F)
-- [ ] **VAST Data** — Software Engineer- New college Grad Israel - Haifa Engineering (95%) — [link](https://www.comeet.com/jobs/vastdata/43.001/software-engineer--new-college-grad/81.A34)
 - [ ] **VAST Data** — QA Automation Engineer Israel - Tel Aviv Engineering (95%) — [link](https://www.comeet.com/jobs/vastdata/43.001/qa-automation-engineer/96.619)
 
 ## 2026-08-26
-- [ ] **Nvidia** — Linux Driver Developer JR2024027 Israel, Yokneam (95%) — [link](https://jobs.nvidia.com/careers/job/893397341378)
 - [ ] **SAP** — Cloud Platform Engineer - Student (Java) (85%) — [link](https://jobs.sap.com/job/Ra&apos;anana-Cloud-Platform-Engineer-Student-%28Java%29-4366202/1429741933/)
-
-## 2026-08-27
-- [ ] **Nvidia** — Design Automation Engineer JR2022951 Israel, Yokneam (95%) — [link](https://jobs.nvidia.com/careers/job/893397075751)
 
 ## 2026-09-01
 - [ ] **Aidoc** — AI Software Engineer Tel Aviv-Yafo, Tel Aviv District, Israel (95%) — [link](https://www.aidoc.com/about/careers/ai-software-engineer)
@@ -35,8 +28,6 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-09-03
 - [ ] **HiBob** — Junior Field Deployment Engineer (FDE) Permanent | Israel (100%) — [link](https://hibob-fa0ad69d0cb34a.careers.hibob.com/jobs/6bd1bf4e-5e20-40e5-a2af-c0bf4f39a7f9)
-- [ ] **Nvidia** — Software Performance Engineer JR2024413 Israel, Yokneam (95%) — [link](https://jobs.nvidia.com/careers/job/893397548023)
-- [ ] **Nvidia** — Advanced Software Development Engineer JR2020678 Israel, Yokneam (95%) — [link](https://jobs.nvidia.com/careers/job/893396409041)
 - [ ] **AppsFlyer** — Mobile SDK Engineer Herzliya Apply (95%) — [link](https://boards.greenhouse.io/embed/job_app?for=appsflyer&token=8781235002)
 
 ## 2026-09-06
@@ -45,7 +36,6 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-09-08
 - [x] **Nvidia** — DevOps Engineer, DOCA JR2023758 Israel, Yokneam + 1 more (95%) — [link](https://jobs.nvidia.com/careers/job/893397606507)
-- [ ] **Nvidia** — Software Engineer, DOCA Networking JR2024811 Palestine, Rawabi (85%) — [link](https://jobs.nvidia.com/careers/job/893397606510)
 - [ ] **Verint** — DevOps Engineer - Herzliya, Israel (95%) — [link](https://fa-epcb-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX/job/4207)
 
 ## 2026-09-10
@@ -72,12 +62,8 @@ Check a box on GitHub once you've submitted your application for that job.
 - [x] **Redwood International Sports** — Full Stack Engineer (פתח תקווה) (95%) — [link](https://il.linkedin.com/jobs/view/full-stack-engineer-at-redwood-international-sports-%E2%9A%BD%EF%B8%8F-4468358703?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
 - [ ] **Nvidia** — Software Design Engineer - SONiC Group JR2005323 Israel, Raanana (95%) — [link](https://jobs.nvidia.com/careers/job/893391708161)
 
-## 2026-09-19
-- [ ] **Nvidia** — Developer Technology Engineer - Simulation JR2020295 Korea, Seoul (85%) — [link](https://jobs.nvidia.com/careers/job/893395999538)
-
 ## 2026-09-22
 - [ ] **Cyolo** — Junior DevOps Engineer Israel R&D See Details (100%) — [link](https://cyolo.io/open-positions/84.274)
 
 ## 2026-09-23
-- [ ] **VAST Data** — QA Performance Engineer Israel - Haifa Engineering (95%) — [link](https://www.comeet.com/jobs/vastdata/43.001/qa-performance-engineer/99.A1F-17.10C)
 - [ ] **VAST Data** — QA Performance Engineer Israel - Tel Aviv Engineering (95%) — [link](https://www.comeet.com/jobs/vastdata/43.001/qa-performance-engineer/99.A1F)

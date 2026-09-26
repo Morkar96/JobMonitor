@@ -28,38 +28,23 @@ from config import SITES, REPORTS_DIR
 import storage
 import tracker
 from scraper import fetch_job_candidates, fetch_job_detail_text
-from matcher import score_job
 from matcher_keywords import score_job_keywords
 
 # Stage 1 scores a job on its title alone (cheap, from the listing page we
 # already scraped). Stage 2 only kicks in for jobs stage 1 marked
 # compatible: it fetches the actual posting page and re-scores against the
 # real body text, which often states an experience/location requirement
-# the title never mentioned. Capped independently of the LLM's own
-# per-run cap since it's bounded by page-load time, not API quota -- with
-# a shared browser (see main()) each fetch is a few seconds, so this caps
-# worst-case stage-2 time at roughly MAX_STAGE2_FETCHES_PER_RUN * ~10s.
+# the title never mentioned. Both stages use the same keyword matcher --
+# no LLM involved anywhere in this pipeline.
 MAX_STAGE2_FETCHES_PER_RUN = 60
 _stage2_fetch_count = 0
 
 
 def evaluate_job(job: dict, browser) -> dict:
-    """Score a job, refining with stage 2 if stage 1 says it's compatible.
-
-    Stage 1 always uses keyword matching, not the LLM. The Gemini free
-    tier's actual daily quota turned out to be as low as 20 requests/day
-    (project- and model-dependent, far below what the "~1,500/day" comment
-    in matcher_llm.py assumed) -- spending that on stage 1, which runs
-    across every single candidate on every site, exhausts it almost
-    immediately and leaves nothing for stage 2. Reserving the LLM for
-    stage 2 instead means its scarce quota goes to the jobs that already
-    cleared the cheap screen, which is both a much smaller set and a much
-    higher-value place to spend a semantic check (catching a blog post or
-    an implicit seniority requirement the keyword list can't)."""
+    """Score a job, refining with stage 2 if stage 1 says it's compatible."""
     global _stage2_fetch_count
 
     result = score_job_keywords(job["title"])
-    result["engine"] = "keywords"
     result.setdefault("stage2_checked", False)
     if not result["compatible"]:
         return result
@@ -74,14 +59,14 @@ def evaluate_job(job: dict, browser) -> dict:
         return result
 
     _stage2_fetch_count += 1
-    refined = score_job(job["title"], extra_text=detail_text)
+    refined = score_job_keywords(job["title"], extra_text=detail_text)
     refined["stage2_checked"] = True
     if result["compatible"] and not refined["compatible"]:
-        reason = "non-job content" if refined.get("non_job_content") else (
-            "senior/experience" if refined.get("senior_conflict") else (
+        reason = "senior/experience" if refined.get("senior_conflict") else (
             "foreign location" if refined.get("foreign_conflict") else (
+            "non-center Israel location" if refined.get("periphery_conflict") else (
             "non-software role" if refined.get("non_software_conflict") else "score")))
-        print(f"    [stage2/{refined['engine']}] demoted ({reason}) after reading full posting: {job['title'][:60]}")
+        print(f"    [stage2] demoted ({reason}) after reading full posting: {job['title'][:60]}")
     return refined
 
 
@@ -126,7 +111,6 @@ def process_site(site: dict, data: dict, browser) -> list[dict]:
             "compatible": result["compatible"],
             "matched_categories": ", ".join(result["matched"]),
             "stage2_checked": result["stage2_checked"],
-            "engine": result["engine"],
             "checked_at": datetime.now().isoformat(timespec="seconds"),
         })
 
@@ -141,7 +125,7 @@ def write_report(rows: list[dict]) -> str:
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     path = os.path.join(REPORTS_DIR, f"jobs_{ts}.csv")
     fieldnames = ["site", "company", "run_type", "title", "url", "score", "compatible",
-                  "matched_categories", "stage2_checked", "engine", "checked_at"]
+                  "matched_categories", "stage2_checked", "checked_at"]
     with open(path, "w", newline="", encoding="utf-8-sig") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
@@ -184,13 +168,9 @@ def main():
         return
 
     stage2_checked = sum(1 for r in all_rows if r["stage2_checked"])
-    llm_used = sum(1 for r in all_rows if r["engine"] == "llm")
     print(f"\n{'=' * 60}")
     print(f"TOTAL evaluated: {len(all_rows)} | COMPATIBLE (>=75%): {len(compatible_rows)} "
           f"| stage-2 refined: {stage2_checked}/{MAX_STAGE2_FETCHES_PER_RUN} cap")
-    print(f"Stage-2 LLM calls that actually succeeded: {llm_used}/{stage2_checked} "
-          f"(rest fell back to keyword matching -- usually the Gemini free-tier "
-          f"daily quota, which can be as low as 20 req/day)")
     print(f"{'=' * 60}")
     for r in compatible_rows:
         print(f"[{r['site']}] ({r['score']}%) {r['title']}\n    {r['url']}")

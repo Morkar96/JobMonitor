@@ -67,3 +67,6 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-09-23
 - [ ] **VAST Data** — QA Performance Engineer Israel - Tel Aviv Engineering (95%) — [link](https://www.comeet.com/jobs/vastdata/43.001/qa-performance-engineer/99.A1F)
+
+## 2026-09-27
+- [ ] **JFrog** — Software Engineer - Tel aviv (95%) — [link](https://join.jfrog.com/job/?job=8152802&gh_jid=8152802)

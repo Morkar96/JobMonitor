@@ -70,3 +70,7 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-09-27
 - [ ] **JFrog** — Software Engineer - Tel aviv (95%) — [link](https://join.jfrog.com/job/?job=8152802&gh_jid=8152802)
+
+## 2026-09-28
+- [ ] **DOT Compliance** — Software Engineer (תל אביב-יפו) (100%) — [link](https://il.linkedin.com/jobs/view/software-engineer-at-dot-compliance-4457696751?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
+- [ ] **Nvidia** — AI Software Engineer, Lightspeed Studios JR2026538 US, CA, Remote + 1 more Remote (95%) — [link](https://jobs.nvidia.com/careers/job/893397883146)

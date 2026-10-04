@@ -78,3 +78,6 @@ Check a box on GitHub once you've submitted your application for that job.
 ## 2026-09-29
 - [ ] **Apple Israel** — SW Developer For Validation-SSD (95%) — [link](https://jobs.apple.com/en-il/details/200623639-0865/sw-developer-for-validation-ssd?team=SFTWR)
 - [ ] **Viola Credit** — Algorithm Engineer (95%) — [link](https://careers.viola-group.com/companies/speedata/jobs/95081856-algorithm-engineer#content)
+
+## 2026-10-04
+- [ ] **DOT Compliance** — Software Engineer (תל אביב-יפו) (100%) — [link](https://il.linkedin.com/jobs/view/software-engineer-at-dot-compliance-4472350221?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)

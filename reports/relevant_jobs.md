@@ -81,3 +81,6 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-10-04
 - [ ] **DOT Compliance** — Software Engineer (תל אביב-יפו) (100%) — [link](https://il.linkedin.com/jobs/view/software-engineer-at-dot-compliance-4472350221?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
+
+## 2026-10-05
+- [ ] **Nvidia** — DevOps Engineer JR2008768 Israel, Raanana (95%) — [link](https://jobs.nvidia.com/careers/job/893392257048)

@@ -84,3 +84,6 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-10-05
 - [ ] **Nvidia** — DevOps Engineer JR2008768 Israel, Raanana (95%) — [link](https://jobs.nvidia.com/careers/job/893392257048)
+
+## 2026-10-07
+- [ ] **Nvidia** — QA and Automation Engineer JR2024858 Israel, Raanana + 1 more (95%) — [link](https://jobs.nvidia.com/careers/job/893397531278)

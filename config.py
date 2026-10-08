@@ -529,6 +529,21 @@ KEYWORDS = {
         "גבעתיים", "בני ברק", "ראשון לציון", "רעננה", "כפר סבא",
         "מרחוק", "עבודה מהבית",
     ],
+    # Same list as "location" above MINUS "remote"/"מרחוק"/"עבודה מהבית" --
+    # used specifically to decide whether a foreign-location mention is
+    # overridden. "Remote" alone doesn't say remote-from-WHERE, so "US, CA,
+    # Remote" must not clear the explicit foreign conflict the way an
+    # actual Israel place name would (a real miss: that exact Nvidia
+    # posting scored compatible before this split existed, since "remote"
+    # satisfied the old override check all on its own).
+    "location_israel_named": [
+        "israel", "tel aviv", "gush dan", "central israel", "center district",
+        "ramat gan", "herzliya", "petah tikva", "petach tikva", "raanana",
+        "ra'anana", "kfar saba", "givatayim", "bnei brak", "rishon lezion",
+        "rishon le zion",
+        "ישראל", "תל אביב", "גוש דן", "מרכז", "רמת גן", "הרצליה", "פתח תקווה",
+        "גבעתיים", "בני ברק", "ראשון לציון", "רעננה", "כפר סבא",
+    ],
     # Specific-enough signals to override location_non_center_israel below --
     # unlike the bare "israel"/"מרכז" in the general location list above
     # (which says "this company is in Israel" but not where), these actually

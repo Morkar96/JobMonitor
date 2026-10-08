@@ -1,0 +1,49 @@
+name: Relevant Jobs Audit
+
+on:
+  schedule:
+    # Twice a week (Monday and Thursday) -- this only re-checks already-
+    # logged entries against the current matcher rules, so there's no
+    # value in running it as often as the daily scrape.
+    - cron: "0 8 * * 1,4"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      # No Playwright/browser needed -- this test only reads
+      # reports/relevant_jobs.md and re-scores titles with the plain
+      # keyword matcher (matcher_keywords.py has no external dependencies).
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Run relevant-jobs consistency audit
+        id: audit
+        run: pytest test_relevant_jobs_audit.py -v | tee /tmp/audit_output.txt
+
+      - name: Open an issue on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo '```'
+            cat /tmp/audit_output.txt
+            echo '```'
+          } > /tmp/issue_body.md
+          gh issue create \
+            --title "Relevant Jobs Audit: matcher-rule violations found $(date -u +'%Y-%m-%d')" \
+            --body-file /tmp/issue_body.md

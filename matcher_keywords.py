@@ -74,10 +74,14 @@ def score_job_keywords(title: str, extra_text: str = "") -> dict:
         matched.append("level")
         score += WEIGHTS["level"]
 
-    # only a disqualifier when there's no Israeli location also mentioned --
-    # trust the positive signal over the negative one if both are present
+    # Only a disqualifier when there's no actual Israeli place name also
+    # mentioned -- trust the positive signal over the negative one if both
+    # are present. Deliberately checks location_israel_named rather than
+    # "location" in matched: bare "remote" doesn't say remote-from-WHERE,
+    # so "US, CA, Remote" must not clear this the way "Tel Aviv" would.
     foreign_conflict = (
-        "location" not in matched and _matches(combined, KEYWORDS["location_foreign"])
+        not _matches(combined, KEYWORDS["location_israel_named"])
+        and _matches(combined, KEYWORDS["location_foreign"])
     )
 
     # Israel but not center/remote (Haifa, Beer Sheva, Jerusalem, ...) -- only

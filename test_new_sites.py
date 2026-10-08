@@ -84,6 +84,11 @@ def test_new_site_scraping(site, browser):
 
     titles = [c["title"] for c in candidates]
     most_common_title, count = Counter(titles).most_common(1)[0]
+    # count == 1 means no title repeats at all -- on a small candidate list
+    # the top title's share alone can still exceed MAX_REPEATED_TITLE_RATIO
+    # (e.g. 1/3 = 33%) despite there being zero actual duplication to flag.
+    if count == 1:
+        return
     ratio = count / len(titles)
     assert ratio <= MAX_REPEATED_TITLE_RATIO, (
         f"{count}/{len(titles)} candidates ({ratio:.0%}) share the identical "

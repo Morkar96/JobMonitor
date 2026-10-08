@@ -83,3 +83,8 @@ Check a box on GitHub once you've submitted your application for that job.
 
 ## 2026-10-07
 - [ ] **Nvidia** — QA and Automation Engineer JR2024858 Israel, Raanana + 1 more (95%) — [link](https://jobs.nvidia.com/careers/job/893397531278)
+
+## 2026-10-08
+- [ ] **Nvidia** — Software Verification Engineer JR2006923 Israel, Raanana (95%) — [link](https://jobs.nvidia.com/careers/job/893391885651)
+- [ ] **Nvidia** — Infiniband Network Software Engineer JR2007263 Israel, Raanana (95%) — [link](https://jobs.nvidia.com/careers/job/893391907505)
+- [ ] **קבוצת ניאופרם (Super-Pharm)** — מפתח.ת Full Stack (מס' משרה: 6729 | מערכות מידע | ניאופרם בע''מ | גוש דן | פתח תקווה | 5 ימים בשבוע) (95%) — [link](https://career.adamtotal.co.il/Jobs/JobDetails?token=dXBCajdYRU4wZlg1UUZxWXJRKzlyS1pNRFB6Ly8rZVNGSGhLNWloUW03OU1wZGZBcjMzQ04rOTFVRWRTMFNTUA==&shr=&eid=)

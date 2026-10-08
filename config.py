@@ -427,6 +427,10 @@ SITES = [
 {"name": "7ai", "url": "https://7ai.com/careers"},
 {"name": "Harmony", "url": "https://jobs.ashbyhq.com/harmony"},
 {"name": "Minute", "url": "https://www.minutegroup.com/company/careers"},
+# "מרכבה" -- the Israeli civil service's public recruitment portal.
+# Site is returning a maintenance 503 as of 2026-10-08; added anyway so
+# it's in rotation once that's resolved (see merkava_careers audit task).
+{"name": "מרכבה - גיוס פומבי", "url": "https://merkava.mrp.gov.il/giusp/index.html"},
 ]
 
 # Compatibility keyword sets (English + Hebrew). A candidate job title/snippet

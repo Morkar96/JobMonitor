@@ -8,6 +8,7 @@ use Playwright (headless Chromium) to render the page before parsing.
 from __future__ import annotations
 
 import csv
+import html
 import json
 import re
 import ssl
@@ -73,6 +74,24 @@ NOISE_DOMAINS = {"youtube.com", "youtu.be", "vimeo.com"}
 # alone.
 NEGATIVE_URL_WORDS = ["/blog", "/resources", "/solutions", "/products",
                        "/teams/", "/news", "/press", "/webinar", "/developer"]
+
+# Some job-card layouts wrap the whole card (title + location + department +
+# a "See Details"/"Apply Now"-style button label) in one <a> tag, so the
+# generic extractor's a.get_text() picks up the button label as a trailing
+# suffix on every single title (e.g. "Junior DevOps Engineer Israel R&D See
+# Details" -- found on Cyolo). Strip a known trailing button label rather
+# than dropping the whole candidate the way NOISE_WORDS would.
+_TRAILING_BUTTON_LABELS = [
+    "see details", "view details", "learn more", "apply now", "apply here",
+]
+
+
+def _strip_trailing_button_label(text: str) -> str:
+    lower = text.lower()
+    for label in _TRAILING_BUTTON_LABELS:
+        if lower.endswith(label):
+            return text[: -len(label)].rstrip(" -–—|").strip()
+    return text
 
 
 def _render_page(url: str, browser, wait_selector: str | None = None, timeout_ms: int = 25000) -> str:
@@ -174,7 +193,7 @@ def _extract_generic(html: str, base_url: str) -> list[dict]:
     candidates = []
 
     for a in soup.find_all("a", href=True):
-        text = a.get_text(" ", strip=True)
+        text = _strip_trailing_button_label(a.get_text(" ", strip=True))
         href = a["href"].strip()
         if not text or len(text) < 3:
             continue
@@ -392,10 +411,18 @@ def _extract_hunter_hrms_api(site: dict) -> list[dict]:
     on the plain listing URL is the honest choice: it navigates to the
     general jobs page (not a fabricated-looking specific-job link) while
     still giving each job a unique URL, which storage.py/tracker.py rely on
-    for dedup -- without that they'd collapse every job here into one."""
+    for dedup -- without that they'd collapse every job here into one.
+
+    `category_label` (if set) gets appended to every title. A category-
+    locked source like this one has already established that every job in
+    it is IT/tech-relevant regardless of what the bare title says -- e.g.
+    "Project Manager" pulled from Tel Aviv's IT category is a real match
+    the keyword matcher would otherwise miss, since "project manager" alone
+    says nothing about domain."""
     api_url = site.get("api_url", "https://niloo-server.herokuapp.com/actions-ta")
     jobs = _fetch_json(api_url, method="POST", body={"cmd": "get-jobs-ext"})
     category_id = site.get("category_id")
+    category_label = site.get("category_label")
     base = site["url"].split("?")[0]
     candidates = []
     for job in jobs:
@@ -405,8 +432,45 @@ def _extract_hunter_hrms_api(site: dict) -> list[dict]:
         job_id = job.get("jobId")
         if not title or job_id is None:
             continue
+        display_title = f"{title} ({category_label})" if category_label else title
         job_url = f"{base}#job-{job_id}"
-        candidates.append({"title": title, "url": job_url})
+        candidates.append({"title": display_title, "url": job_url})
+    return candidates
+
+
+# Ramat Gan Municipality's real job listings live behind a CMS content API
+# (api-m.ramat-gan.muni.il), split across these three lobby sub-pages -- not
+# on the page we were scraping generically, which only found the site's nav
+# menu (103 municipal-service links, zero real jobs).
+_RAMAT_GAN_CONTENT_PAGES = ["jobs-manpower", "jobs-no-michraz", "education-support"]
+_RAMAT_GAN_APPLY_LINK_RE = re.compile(r'href="(https?://ramat-gan\.automas\.co\.il/[^"]+)"')
+
+
+def _extract_ramat_gan_muni(site: dict) -> list[dict]:
+    """Each sub-page's CMS API response has a "bids" component containing one
+    entry per posting; the application link lives inside the rich-text
+    `answer` HTML field (not its own field), alongside a PDF spec link and a
+    mailto -- pull out the actual apply-page link specifically."""
+    base = "https://api-m.ramat-gan.muni.il/api/ContentPage/michrazim-and-jobs-lobby/content-pages"
+    fallback_url = "https://www.ramat-gan.muni.il/michrazim-and-jobs-lobby/"
+    candidates = []
+    seen_urls = set()
+    for slug in _RAMAT_GAN_CONTENT_PAGES:
+        payload = _fetch_json(f"{base}/{slug}")
+        for component in payload.get("components", []):
+            if (component.get("content") or {}).get("type") != "bids":
+                continue
+            for bid in component.get("components") or []:
+                content = bid.get("content") or {}
+                title = (content.get("question") or "").strip()
+                if not title:
+                    continue
+                match = _RAMAT_GAN_APPLY_LINK_RE.search(content.get("answer") or "")
+                job_url = html.unescape(match.group(1)) if match else fallback_url
+                if job_url in seen_urls:
+                    continue
+                seen_urls.add(job_url)
+                candidates.append({"title": title, "url": job_url})
     return candidates
 
 
@@ -623,6 +687,8 @@ def fetch_job_candidates(site: dict, browser) -> list[dict]:
         return _extract_shufersal(site, browser)
     if engine == "hibob_careers":
         return _extract_hibob_careers(site, browser)
+    if engine == "ramat_gan_muni":
+        return _extract_ramat_gan_muni(site)
 
     if engine == "workday":
         extract = lambda h: _extract_workday(h, site["url"])

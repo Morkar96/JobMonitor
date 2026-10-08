@@ -59,10 +59,14 @@ SITES = [
         "url": "https://telaviv-ext.hunterhrms.com/category?cid=45",
         "engine": "hunter_hrms_api",
         "category_id": 45,
+        "category_label": "מחשוב",
     },
     {"name": "TASMC (Ichilov)", "url": "https://www.tasmc.org.il/career/doctors-careers/"},
-    {"name": "Ramat Gan Municipality", "url": "https://www.ramat-gan.muni.il/michrazim-and-jobs-lobby/"},
-    {"name": "Altshuler Shaham", "url": "https://careers.topmatch.co.il/AltshulerShaham/"},
+    {
+        "name": "Ramat Gan Municipality",
+        "url": "https://www.ramat-gan.muni.il/michrazim-and-jobs-lobby/",
+        "engine": "ramat_gan_muni",
+    },
     {"name": "Tikal", "url": "https://www.tikalk.com/career/"},
     {"name": "Nvidia", "url": "https://jobs.nvidia.com/careers?start=0&pid=893396838168&sort_by=timestamp"},
     {"name": "Microsoft", "url": "https://careers.microsoft.com/v2/global/en/locations/israel.html"},
@@ -97,7 +101,6 @@ SITES = [
     {"name": "Meta", "url": "https://www.metacareers.com/tel-avivjobsearch/"},
     {"name": "Thales Cyber Security Products-Imperva", "url": "https://careers.thalesgroup.com/global/en/search-results"},
     {"name": "Amazon Israel", "url": "https://www.amazon.jobs/content/en/locations/israel/tel-aviv"},
-    {"name": "Akamai Technologies", "url": "https://jobs.akamai.com/en/sites/CX_1/jobs?location=Israel&locationId=300000000469279&locationLevel=country&mode=location"},
     {"name": "LSports", "url": "https://www.lsports.eu/careers/"},
     {"name": "Apple Israel", "url": "https://jobs.apple.com/en-il/search?location=israel-ISR&page=2"},
     {
@@ -205,10 +208,6 @@ SITES = [
   {
     "name": "Arpeely",
     "url": "https://www.arpeely.com/joinus"
-  },
-  {
-    "name": "Salesforce",
-    "url": "https://www.salesforce.com/company/careers/jobs/"
   },
   {
     "name": "DoorLoop",
@@ -363,7 +362,6 @@ SITES = [
   {"name": "אל על", "url": "https://www.elal.com/heb/career/welcome"},
   {"name": "תנובה", "url": "https://www.tnuva.co.il/%D7%A7%D7%A8%D7%99%D7%99%D7%A8%D7%94/"},
   {"name": "אלקטרה", "url": "https://www.electra.co.il/career/"},
-  {"name": "אסם-נסטלה", "url": "https://www.osem-nestle.co.il/career"},
   {"name": "דלק ישראל", "url": "https://delek.co.il/%D7%93%D7%A8%D7%95%D7%A9%D7%99%D7%9D-%D7%97%D7%93%D7%A9/"},
   {"name": "Zafran", "url": "https://www.zafran.io/careers?ashby_employment_type=FullTime#positions"},
   {"name": "Wix", "url": "https://www.wix.com/jobs/"},
@@ -454,6 +452,12 @@ KEYWORDS = {
         "information technology", "תמיכה טכנית", "אדמיניסטרטור מערכות",
         "אדמיניסטרטורית מערכות", "מנהל רשת", "מנהלת רשת", "טכנאי מחשבים",
         "טכנאית מחשבים",
+        # Standard Israeli public-sector terms for "IT/informatization" --
+        # e.g. a municipality's IT department is "אגף מחשוב"/"תחום תקשוב",
+        # and job titles from it (project managers, officers, etc.) get
+        # this appended as context by the hunter_hrms_api engine even when
+        # the bare title itself doesn't say anything tech-specific.
+        "מחשוב", "תקשוב",
     ],
     # "engineer" and Hebrew "מפתח"/"מהנדס" (developer/engineer) are used just
     # as often for hardware/mechanical/electrical/systems roles as for
@@ -487,11 +491,26 @@ KEYWORDS = {
         "senior", "sr.", "sr ", "sr)", "mid-level", "mid level", "middle level",
         "team lead", "tech lead", "lead developer", "staff ", "staff-",
         "principal ", "principal-", "lead", "director", "experienced",
-        # People-management / management-track roles -- never a 0-2 year
-        # junior IC position, regardless of how well role/location match
-        # (a real gap: "Software Engineering Manager" and "R&D Manager"
-        # postings were scoring as compatible before this was added).
-        "manager", "מנהל", "מנהל/ת", "מנהלת",
+        "head of",
+        # People-management/department-head roles specifically -- never a
+        # 0-2 year junior IC position (a real gap: "Software Engineering
+        # Manager" and "R&D Manager" postings were scoring as compatible
+        # before this was added). Deliberately NOT a bare "manager"/"מנהל"
+        # match -- that also disqualified titles like "Project Manager" and
+        # "IT Projects Officer" that aren't people-management roles at all
+        # and can genuinely be junior/entry-level.
+        "engineering manager", "r&d manager", "rnd manager",
+        "software engineering manager", "development manager", "dev manager",
+        "team manager", "department manager", "division manager",
+        "line manager", "people manager",
+        "מנהל מחלק", "מנהל/ת מחלק", "מנהלת מחלק",
+        "מנהל אגף", "מנהל/ת אגף", "מנהלת אגף",
+        "מנהל מדור", "מנהל/ת מדור", "מנהלת מדור",
+        "מנהל צוות", "מנהל/ת צוות", "מנהלת צוות",
+        "מנהל הנדסה", "מנהל/ת הנדסה", "מנהלת הנדסה",
+        "מנהל פיתוח", "מנהל/ת פיתוח", "מנהלת פיתוח",
+        'מנהל מו"פ', 'מנהל/ת מו"פ', 'מנהלת מו"פ',
+        "ראש תחום", "ראש/ת תחום", "ראשת תחום", "ראש.ת תחום",
         "3+ years", "4+ years", "5+ years", "6+ years", "7+ years",
         "8+ years", "9+ years", "10+ years",
         "3 years", "4 years", "5 years", "6 years", "7 years", "8 years",

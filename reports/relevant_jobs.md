@@ -62,9 +62,6 @@ Check a box on GitHub once you've submitted your application for that job.
 - [x] **Redwood International Sports** — Full Stack Engineer (פתח תקווה) (95%) — [link](https://il.linkedin.com/jobs/view/full-stack-engineer-at-redwood-international-sports-%E2%9A%BD%EF%B8%8F-4468358703?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
 - [ ] **Nvidia** — Software Design Engineer - SONiC Group JR2005323 Israel, Raanana (95%) — [link](https://jobs.nvidia.com/careers/job/893391708161)
 
-## 2026-09-22
-- [ ] **Cyolo** — Junior DevOps Engineer Israel R&D See Details (100%) — [link](https://cyolo.io/open-positions/84.274)
-
 ## 2026-09-23
 - [ ] **VAST Data** — QA Performance Engineer Israel - Tel Aviv Engineering (95%) — [link](https://www.comeet.com/jobs/vastdata/43.001/qa-performance-engineer/99.A1F)
 

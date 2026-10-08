@@ -626,6 +626,29 @@ def _extract_hibob_careers(site: dict, browser) -> list[dict]:
     return candidates
 
 
+def _extract_adamtotal_careers(html: str, base_url: str) -> list[dict]:
+    """AdamTotal-hosted career boards (e.g. Neopharm) render every job
+    card's apply link with identical generic text ("Job details and apply")
+    -- the real title lives in the card's own data-job-title attribute
+    instead, with department/company/location in a sibling .job-meta
+    block. The apply link's href is a real per-job URL, just with useless
+    link text, so unlike DriveNets/Deep Instinct this one doesn't need an
+    ancestor text-walk -- just read the right attributes."""
+    soup = BeautifulSoup(html, "lxml")
+    candidates = []
+    for card in soup.find_all("article", class_="job-card"):
+        title = (card.get("data-job-title") or "").strip()
+        link = card.select_one("a.job-detail-link")
+        href = link.get("href", "").strip() if link else ""
+        if not title or not href:
+            continue
+        meta = card.select_one(".job-meta")
+        meta_text = meta.get_text(" | ", strip=True) if meta else ""
+        display_title = f"{title} ({meta_text})" if meta_text else title
+        candidates.append({"title": display_title, "url": urljoin(base_url, href)})
+    return candidates
+
+
 _TECHMAP_SKIP_LEVELS = {"Manager", "Tech Lead", "Architect", "Executive"}
 
 
@@ -698,6 +721,8 @@ def fetch_job_candidates(site: dict, browser) -> list[dict]:
         extract = lambda h: _extract_drivenets(h, site["url"])
     elif engine == "jsonld_jobs":
         extract = lambda h: _extract_jsonld_jobs(h, site["url"])
+    elif engine == "adamtotal_careers":
+        extract = lambda h: _extract_adamtotal_careers(h, site["url"])
     else:
         extract = lambda h: _extract_generic(h, site["url"])
 

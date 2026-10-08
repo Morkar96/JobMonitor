@@ -352,7 +352,11 @@ SITES = [
   {"name": "GE HealthCare", "url": "https://careers.gehealthcare.com/global/en/search-results"},
   {"name": "Philips Israel", "url": "https://www.careers.philips.com/il/en"},
   {"name": "בזק", "url": "https://www.bezeq.co.il/career_new/"},
-  {"name": "קבוצת ניאופרם (Super-Pharm)", "url": "https://www.neopharmgroup.com/careers/new/public/"},
+  {
+      "name": "קבוצת ניאופרם (Super-Pharm)",
+      "url": "https://career.adamtotal.co.il/?token=F09AD67C-0202-4E9A-A735-E04F97F3086C",
+      "engine": "adamtotal_careers",
+  },
   {"name": "קבוצת שטראוס", "url": "https://www.strauss-group.com/work-strauss/"},
   {"name": "סלקום", "url": "https://cellcom.co.il/jobs/Careers/"},
   {"name": "פרטנר", "url": "https://www.partner.co.il/partnerjobs"},

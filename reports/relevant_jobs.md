@@ -88,3 +88,8 @@ Check a box on GitHub once you've submitted your application for that job.
 - [ ] **Nvidia** — Software Verification Engineer JR2006923 Israel, Raanana (95%) — [link](https://jobs.nvidia.com/careers/job/893391885651)
 - [ ] **Nvidia** — Infiniband Network Software Engineer JR2007263 Israel, Raanana (95%) — [link](https://jobs.nvidia.com/careers/job/893391907505)
 - [ ] **קבוצת ניאופרם (Super-Pharm)** — מפתח.ת Full Stack (מס' משרה: 6729 | מערכות מידע | ניאופרם בע''מ | גוש דן | פתח תקווה | 5 ימים בשבוע) (95%) — [link](https://career.adamtotal.co.il/Jobs/JobDetails?token=dXBCajdYRU4wZlg1UUZxWXJRKzlyS1pNRFB6Ly8rZVNGSGhLNWloUW03OU1wZGZBcjMzQ04rOTFVRWRTMFNTUA==&shr=&eid=)
+
+## 2026-10-11
+- [ ] **Nvidia** — Advanced Software Development Engineer (תל אביב-יפו) (95%) — [link](https://il.linkedin.com/jobs/view/advanced-software-development-engineer-at-nvidia-4475702983?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
+- [ ] **Apple Israel** — Low-level Software Engineer, Platform Architecture (100%) — [link](https://jobs.apple.com/en-il/details/200687166-1451/low-level-software-engineer-platform-architecture?team=SFTWR)
+- [ ] **Apple Israel** — Low-level Software Engineer, Platform Architecture (100%) — [link](https://jobs.apple.com/en-il/details/200687166-0865/low-level-software-engineer-platform-architecture?team=SFTWR)

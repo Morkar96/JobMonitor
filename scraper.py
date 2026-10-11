@@ -649,6 +649,54 @@ def _extract_adamtotal_careers(html: str, base_url: str) -> list[dict]:
     return candidates
 
 
+def _extract_merkava_careers(site: dict, browser) -> list[dict]:
+    """The Israeli civil service's public recruitment portal (מרכבה) is an
+    SPA backed by a SAP OData service (GIUS_PUBLIC_AREA_SRV/TenderDataSet).
+    The call needs no auth/session -- confirmed by calling it directly --
+    but a bare urllib request gets an SSL handshake failure against this
+    server's legacy TLS config, so it's made through an actual browser
+    page instead. $top=1000 returns every open tender in one unpaginated
+    call (510 results vs the site's own "515 open positions" counter --
+    the small gap is routine listing churn, not pagination being missed).
+
+    Each job's real per-job URL is a SPA route, #/position/<RequestId>
+    (confirmed against the site's own "hot jobs" teaser links) -- RequestId
+    is a field on the tender itself, not something parsed out of the
+    OData entity key."""
+    parsed = urlparse(site["url"])
+    api_url = (
+        f"{parsed.scheme}://{parsed.netloc}/sap/opu/odata/ILG/"
+        "GIUS_PUBLIC_AREA_SRV/TenderDataSet?$format=json&sap-client=470&$top=1000"
+    )
+    base = site["url"].split("#")[0]
+
+    page = browser.new_page(user_agent=_UA)
+    try:
+        page.goto(site["url"], wait_until="load", timeout=25000)
+        body = page.evaluate(
+            """async (url) => {
+                const resp = await fetch(url, {headers: {"Accept": "application/json"}});
+                return await resp.text();
+            }""",
+            api_url,
+        )
+    finally:
+        page.close()
+
+    jobs = json.loads(body).get("d", {}).get("results", [])
+    candidates = []
+    for job in jobs:
+        title = (job.get("JobName") or "").strip()
+        request_id = job.get("RequestId")
+        if not title or not request_id:
+            continue
+        location = " | ".join(v for v in (job.get("LocationName"), job.get("Area")) if v)
+        display_title = f"{title} ({location})" if location else title
+        job_url = f"{base}#/position/{request_id}"
+        candidates.append({"title": display_title, "url": job_url})
+    return candidates
+
+
 _TECHMAP_SKIP_LEVELS = {"Manager", "Tech Lead", "Architect", "Executive"}
 
 
@@ -712,6 +760,8 @@ def fetch_job_candidates(site: dict, browser) -> list[dict]:
         return _extract_hibob_careers(site, browser)
     if engine == "ramat_gan_muni":
         return _extract_ramat_gan_muni(site)
+    if engine == "merkava_careers":
+        return _extract_merkava_careers(site, browser)
 
     if engine == "workday":
         extract = lambda h: _extract_workday(h, site["url"])

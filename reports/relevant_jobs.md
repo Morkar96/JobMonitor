@@ -92,3 +92,9 @@ Check a box on GitHub once you've submitted your application for that job.
 ## 2026-10-11
 - [ ] **Nvidia** — Advanced Software Development Engineer (תל אביב-יפו) (95%) — [link](https://il.linkedin.com/jobs/view/advanced-software-development-engineer-at-nvidia-4475702983?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
 - [x] **Apple Israel** — Low-level Software Engineer, Platform Architecture (100%) — [link](https://jobs.apple.com/en-il/details/200687166-1451/low-level-software-engineer-platform-architecture?team=SFTWR)
+
+## 2026-10-12
+- [ ] **INFINIDAT** — Software Developer Engineer in Test (הרצליה) (95%) — [link](https://il.linkedin.com/jobs/view/software-developer-engineer-in-test-at-infinidat-4475688613?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
+- [ ] **abra** — Full Stack Developer (רעננה) (100%) — [link](https://il.linkedin.com/jobs/view/full-stack-developer-at-abra-4477249732?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
+- [ ] **Amazon** — Software Embedded Engineer, Nitro team (תל אביב-יפו) (95%) — [link](https://il.linkedin.com/jobs/view/software-embedded-engineer-nitro-team-at-amazon-4455901294?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
+- [ ] **Blockaid** — Full-Stack Engineer (תל אביב-יפו) (95%) — [link](https://il.linkedin.com/jobs/view/full-stack-engineer-at-blockaid-4477297542?utm_source=techmap&utm_medium=csv&utm_campaign=github&utm_term=apply)
